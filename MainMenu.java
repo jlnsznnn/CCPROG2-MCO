@@ -22,6 +22,7 @@ public class MainMenu {
         int input;
         
         System.out.println();
+        System.out.println();
         System.out.println("=============================================");
         System.out.println("\tV E N  D I N G   M A C H I N E");
         System.out.println("---------------------------------------------");
