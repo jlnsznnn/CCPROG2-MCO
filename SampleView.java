@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SampleView {
     private ImageIcon icon;
@@ -30,6 +32,10 @@ public class SampleView {
         this.menuBtn2 = new JButton("Special Vending Machine");
         this.menuBtn3 = new JButton("Exit");
 
+        menuBtn1.addActionListener(new MenuButtonListener());
+        menuBtn2.addActionListener(new MenuButtonListener());
+        menuBtn3.addActionListener(new MenuButtonListener());
+
         frame.setSize(480, 780);
 
         // Set the icon image
@@ -38,6 +44,7 @@ public class SampleView {
         // Display the frame on the center of the screen
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
+        
     }
 
     // Main Menu GUI
@@ -75,6 +82,50 @@ public class SampleView {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
     }
+
+    // ActionListener
+    private class MenuButtonListener implements ActionListener {
+    @Override
+        public void actionPerformed(ActionEvent e){
+            int choice;
+            if(e.getSource() == menuBtn1){
+                JOptionPane.showMessageDialog(frame, "Regular Vending Machine is created successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                // INSERT CODE
+                RegularVM();
+                frame.dispose();
+            } else if (e.getSource() == menuBtn2) {
+                JOptionPane.showMessageDialog(frame, "Special Vending Machine is created successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                // INSERT CODE
+            } else if (e.getSource() == menuBtn3) {
+                choice = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit?", "Terminate Program", JOptionPane.YES_NO_OPTION);
+                if (choice == JOptionPane.YES_OPTION){
+                    frame.dispose();
+                }
+            }
+        }
+    }
+
+    // Regular Vending Machine GUI
+    public void RegularVM(){
+        JFrame regularVM = new JFrame("Regular Vending Machine");
+        regularVM.setSize(480, 780);
+
+        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Images/TEMPLATE.png"));
+        JPanel regVMBG = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(backgroundImage.getImage(), 0, 0, null);
+            }
+        };
+        regularVM.add(regVMBG);
+        regularVM.setIconImage(icon.getImage());
+        regularVM.setLocationRelativeTo(null);
+        regularVM.setResizable(false);
+        regularVM.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        regularVM.setVisible(true);
+    }
+
     // For testing
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -85,3 +136,4 @@ public class SampleView {
         });
     }
 }
+
