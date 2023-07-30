@@ -24,13 +24,13 @@ public class SampleView {
         };
 
         this.titleSpace = new JLabel();
-        this.titleSpace.setPreferredSize(new Dimension(0, 95));
+        this.titleSpace.setPreferredSize(new Dimension(0, 105));
 
         this.menuBtn1 = new JButton("Regular Vending Machine");
         this.menuBtn2 = new JButton("Special Vending Machine");
         this.menuBtn3 = new JButton("Exit");
 
-        frame.setSize(470, 750);
+        frame.setSize(480, 780);
 
         // Set the icon image
         frame.setIconImage(icon.getImage());
