@@ -1,3 +1,5 @@
+
+
 public class SampleController {
     private SampleView sample;
 
