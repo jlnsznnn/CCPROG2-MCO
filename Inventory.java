@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * 	This Inventory class handles and shows the inventory of the vending machine in the program 
  */
 public class Inventory {
-    private final ArrayList<Item> startingInventory;
+    private final ArrayList<Slot> startingInventory;
 
     /**
      * Constructs an Inventory class
@@ -22,9 +22,8 @@ public class Inventory {
      * @param price       Price of the item
      * @param quantity    Quantity of the item
      */
-    public void updateStartingInventory(String name, double calories, double price, int quantity) {
-        Item tempItem = new Item(name, calories, price, quantity);
-        this.startingInventory.add(tempItem);
+    public void updateStartingInventory(Slot slot) {
+        this.startingInventory.add(slot);
     }
 
     /**
@@ -32,7 +31,7 @@ public class Inventory {
      * 
      * @return  List of items the vending machine has from its creation
      */
-    public ArrayList<Item> getStartingInventory() {
+    public ArrayList<Slot> getStartingInventory() {
         return this.startingInventory;
     }
 

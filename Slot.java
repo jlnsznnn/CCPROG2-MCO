@@ -6,7 +6,7 @@ import java.util.ArrayList;
  */
 public class Slot {
     private int slotNumber;
-    private Item specificItem;
+    private Item specificItem; // Name of the slot
     private ArrayList<Item> itemList;
     private int sales;
 
@@ -47,12 +47,13 @@ public class Slot {
      * @param item      Specific item to be removed
      * @return          True if the item is successfully removed, otherwise false. 
      */
-    public boolean removeItem(Item item) {
+    public boolean removeItem() {
+        int recentIndex = getItemList().size() - 1;
         boolean value = false;
         
         if(!itemList.isEmpty())
         {
-            itemList.remove(item);
+            itemList.remove(recentIndex); 
             value = true;
         }
         
@@ -66,10 +67,10 @@ public class Slot {
         for(int i = 0; i < this.itemList.size(); i++)
         {
             System.out.println("Item #" + (i+1));
-            System.out.println("Name : " + itemList.get(0).getName());
-            System.out.println("Price : " + itemList.get(0).getPrice());
-            System.out.println("Calories : " + itemList.get(0).getCalories());
-            System.out.println("Quantity : " + itemList.get(0).getQuantity());
+            System.out.println("Name : " + itemList.get(i).getName());
+            System.out.println("Price : " + itemList.get(i).getPrice());
+            System.out.println("Calories : " + itemList.get(i).getCalories());
+            System.out.println("Quantity : " + itemList.size());
             System.out.println();
         }
     }

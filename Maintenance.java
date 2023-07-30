@@ -5,7 +5,7 @@
  * and replenishing the money for different denominations. 
  */
 public class Maintenance {
-    private Item item;
+    private Slot slot;
     private Denominations money;
 
     /**
@@ -13,8 +13,8 @@ public class Maintenance {
      * 
      * @param item      Item to be inputted and managed
      */
-    public Maintenance(Item item){
-        this.item = item;
+    public Maintenance(Slot slot){
+        this.slot = slot;
     }
 
     /**
@@ -32,8 +32,11 @@ public class Maintenance {
      * @param addStock      Stock to be added, inputted by the user 
      */
     public void restockItem(int addStock){
-        int currentStock = item.getQuantity();
-        item.setQuantity(currentStock + addStock);
+        int i;
+
+        for(i = 0; i < addStock; i++) {
+            this.slot.addItem(addStock);
+        }
     }
     
     /**
@@ -126,6 +129,11 @@ public class Maintenance {
      * @param price     New price inputted by the user
      */
     public void setNewPrice(double price){
-        this.item.setPrice(price);
+        int i;
+        int totalItems = this.slot.getItemList().size();
+
+        for(i = 0; i < totalItems; i++) {
+            this.slot.getItemList().get(i).setPrice(price);
+        }
     }
 }

@@ -6,7 +6,7 @@ public class Item {
     private final String name;
     private double calories;
     private double price;
-    private int quantity;
+    //private int quantity;
 
     /**
      * Constructs an item class that takes in a name, calories, price, and quantity
@@ -14,13 +14,13 @@ public class Item {
      * @param name                  Name of the item
      * @param calories              Total number of calories
      * @param price                 Price of the item
-     * @param quantity              Total quantity of the item
+     * //@param quantity              Total quantity of the item
      */
     public Item(String name, double calories, double price, int quantity) {
         this.name = name;
         this.calories = calories;
         this.price = price;
-        this.quantity = quantity;
+        //this.quantity = quantity;
     }
 
     /**
@@ -54,10 +54,10 @@ public class Item {
      * Gets the quantity of an item
      * 
      * @return         Total quantity of an item
-     */
+     
     public int getQuantity() {
         return this.quantity;
-    }
+    }*/
 
     /**
      * Sets a new price for an item
@@ -72,8 +72,9 @@ public class Item {
      * Sets a quantity for the item
      * 
      * @param          Quantity of the item
-     */
+     
     public void setQuantity(int quantity){
         this.quantity = quantity;
     }
+    */
 }

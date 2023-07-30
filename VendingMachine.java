@@ -85,7 +85,7 @@ public class VendingMachine {
                 slotList.add(slot); 
                 slotList.get(i).addItem(quantity);
 
-                startingInventory.updateStartingInventory(name, calories, price, quantity);
+                startingInventory.updateStartingInventory(slot);
                 System.out.println("\nItems are successfully added!"); 
             } 
 
@@ -107,7 +107,8 @@ public class VendingMachine {
             System.out.println("Item Name: " + slot.getSpecificItem().getName());
             System.out.println("Calories: " + slot.getSpecificItem().getCalories());
             System.out.println("Price: " + slot.getSpecificItem().getPrice());
-            System.out.println("Quantity: " + slot.getSpecificItem().getQuantity());
+            //System.out.println("Quantity: " + slot.getSpecificItem().getQuantity());
+            System.out.println("Quantity: " + slot.getItemList().size());
             System.out.println();
         }
     }
@@ -244,10 +245,10 @@ public class VendingMachine {
         Item specificItem = slotList.get(slotNumber-1).getSpecificItem();
 
         // dispense item
-        slotList.get(slotNumber-1).removeItem(specificItem);
+        slotList.get(slotNumber-1).removeItem();
         slotList.get(slotNumber-1).addSales();
 
-        slotList.get(slotNumber-1).getSpecificItem().setQuantity(specificItem.getQuantity()-1);
+        //slotList.get(slotNumber-1).getSpecificItem().setQuantity(specificItem.getQuantity()-1);
         
         return specificItem;
     }
@@ -284,9 +285,9 @@ public class VendingMachine {
         for(i = 0; i < startingInventory.getStartingInventory().size(); i++) {
             System.out.println("[ Slot #" + (i+1) +" ]");
             System.out.println();
-            System.out.println("Item Name: " + startingInventory.getStartingInventory().get(i).getName());
-            System.out.println("Price: " + startingInventory.getStartingInventory().get(i).getPrice());
-            System.out.println("Quantity: " + startingInventory.getStartingInventory().get(i).getQuantity());
+            System.out.println("Item Name: " + startingInventory.getStartingInventory().get(i).getSpecificItem().getName());
+            System.out.println("Price: " + startingInventory.getStartingInventory().get(i).getSpecificItem().getPrice());
+            System.out.println("Quantity: " + startingInventory.getStartingInventory().get(i).getItemList().size());
             System.out.println();
         }
     }
@@ -306,7 +307,7 @@ public class VendingMachine {
             System.out.println();
             System.out.println("Item Name: " + slotList.get(i).getSpecificItem().getName());
             System.out.println("Price: " + slotList.get(i).getSpecificItem().getPrice());
-            System.out.println("Quantity : " + slotList.get(i).getSpecificItem().getQuantity());
+            System.out.println("Quantity : " + slotList.get(i).getItemList().size());
             System.out.println();
         }
     }
@@ -472,10 +473,11 @@ public class VendingMachine {
         Maintenance itemPriceMaintenance;
         Maintenance moneyMaintenance;
         Maintenance replenishMoneyMaintenance;
-        int currentStock;
+        int currentStock = 0;
         int remainingStocks;
         int newStock;
         double price;
+        int index = 0;
 
         System.out.println();
         System.out.println("============================================");
@@ -498,8 +500,16 @@ public class VendingMachine {
                 System.out.println("---------------------------------------------");
                 System.out.println("              CURRENT SLOT LIST");
                 item = getItem();
-                itemMaintenance = new Maintenance(item);
-                currentStock = item.getQuantity();
+                
+                for(int i = 0; i < this.slotList.size(); i++) {
+                    if(item.getName().compareTo(slotList.get(i).getSpecificItem().getName()) == 0) {
+                        currentStock = slotList.get(i).getItemList().size();
+                        index = i;
+                    }
+                        
+                }
+
+                itemMaintenance = new Maintenance(slotList.get(index));
                 remainingStocks = 20 - currentStock;
 
                 if(remainingStocks == 0)
@@ -530,7 +540,13 @@ public class VendingMachine {
                 System.out.println("              SET NEW PRICE");
 
                 item = getItem();
-                itemPriceMaintenance = new Maintenance(item);
+
+                for(int i = 0; i < this.slotList.size(); i++) {
+                    if(item.getName().compareTo(slotList.get(i).getSpecificItem().getName()) == 0) {
+                        index = i;
+                    }
+                }
+                itemPriceMaintenance = new Maintenance(slotList.get(index));
 
                 System.out.print("Input new price: ");
                 price = sc.nextDouble();
@@ -618,7 +634,7 @@ public class VendingMachine {
             System.out.println("Item Name: " + slotList.get(i).getSpecificItem().getName());
             System.out.println("Calories: " + slotList.get(i).getSpecificItem().getCalories());
             System.out.println("Price: " + slotList.get(i).getSpecificItem().getPrice());
-            System.out.println("Quantity: " + slotList.get(i).getSpecificItem().getQuantity());
+            System.out.println("Quantity: " + slotList.get(i).getItemList().size());
             System.out.println();
         }
 
