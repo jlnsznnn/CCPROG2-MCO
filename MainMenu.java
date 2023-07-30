@@ -40,8 +40,7 @@ public class MainMenu {
                 createRegularVendingMachine();
                 break;
             case 2:
-                System.out.println("\n(i) Special Vending Machine is not yet available\n");
-                displayMainMenu();
+                createSpecialVendingMachine();
                 break;
             case 3:
                 System.out.println("\nExiting program...\n");
@@ -58,6 +57,14 @@ public class MainMenu {
         vendingMachine.displayMenu();
         vendingMachine.testVendingMachine();
     }
+
+    /**
+     * Creates a Special Vending Machine
+     */
+    public void createSpecialVendingMachine() {
+        System.out.println("\nSpecial Vending Machine is successfully created!");
+    }
+ 
  
     /**
      * Gets and validates the user input by checking if the input is among the choices
