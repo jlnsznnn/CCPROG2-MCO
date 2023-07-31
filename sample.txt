@@ -1,6 +1,4 @@
-import java.util.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,12 +10,24 @@ public class SampleView {
     private JButton menuBtn1, menuBtn2, menuBtn3;
     private JLabel titleSpace;
 
-    // Constructor
     public SampleView() {
         this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
-        this.frame = new JFrame("Greens & Grains");
+        initializeFrame();
+        initializeComponents();
+        addComponentsToFrame();
+    }
 
-        // Create a background image label using the provided URL
+    private void initializeFrame() {
+        this.frame = new JFrame("Greens & Grains");
+        frame.setSize(480, 780);
+        frame.setIconImage(icon.getImage());
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    private void initializeComponents() {
+        // Create and initialize the components here
         final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Images/VM BG.png"));
         this.mainBG = new JPanel(new GridBagLayout()) {
             @Override
@@ -26,9 +36,6 @@ public class SampleView {
                 g.drawImage(backgroundImage.getImage(), 0, 0, null);
             }
         };
-
-        this.frame.setSize(480, 780);
-        this.frame.setIconImage(icon.getImage());
 
         this.titleSpace = new JLabel();
         this.titleSpace.setPreferredSize(new Dimension(0, 105));
@@ -40,14 +47,9 @@ public class SampleView {
         menuBtn1.addActionListener(new MenuButtonListener());
         menuBtn2.addActionListener(new MenuButtonListener());
         menuBtn3.addActionListener(new MenuButtonListener());
-
-        this.frame.setLocationRelativeTo(null);
-        this.frame.setResizable(false);
-        
     }
 
-    // Main Menu GUI
-    public void MainMenu() {
+    private void addComponentsToFrame() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(15, 5, 5, 5);
@@ -77,37 +79,39 @@ public class SampleView {
 
         frame.getContentPane().setLayout(new BorderLayout());
         frame.getContentPane().add(mainBG);
-        
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
+
+    public void showMainMenu() {
         frame.setVisible(true);
     }
 
     // ActionListener
     private class MenuButtonListener implements ActionListener {
-    @Override
-        public void actionPerformed(ActionEvent e){
+        @Override
+        public void actionPerformed(ActionEvent e) {
             int choice;
-            if(e.getSource() == menuBtn1){
+            if (e.getSource() == menuBtn1) {
                 JOptionPane.showMessageDialog(frame, "Regular Vending Machine is created successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
                 // INSERT CODE
-                CustomRVM();
+                showCustomRVM();
                 frame.dispose();
             } else if (e.getSource() == menuBtn2) {
                 JOptionPane.showMessageDialog(frame, "Special Vending Machine is created successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
                 // INSERT CODE
             } else if (e.getSource() == menuBtn3) {
                 choice = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit?", "Terminate Program", JOptionPane.YES_NO_OPTION);
-                if (choice == JOptionPane.YES_OPTION){
+                if (choice == JOptionPane.YES_OPTION) {
                     frame.dispose();
                 }
             }
         }
     }
-     // Regular Vending Machine GUI
-    public void CustomRVM() {
+
+    // Regular Vending Machine GUI
+    public void showCustomRVM() {
         JFrame regularVM = new JFrame("Customize Your Regular Vending Machine");
         regularVM.setSize(480, 780);
-    
+
         final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Images/ASK USER RVM.png"));
         JPanel regVMBG = new JPanel(new GridBagLayout()) {
             @Override
@@ -116,14 +120,8 @@ public class SampleView {
                 g.drawImage(backgroundImage.getImage(), 0, 0, null);
             }
         };
-    
-        Border whiteLine = BorderFactory.createLineBorder(Color.white);
-        regVMBG.setBorder(whiteLine); // Add a white border around the panel
+
         regularVM.add(regVMBG);
-    
-        JPanel labelPanel = new JPanel(new GridBagLayout());
-    
-        regVMBG.add(labelPanel);
 
         regularVM.setIconImage(icon.getImage());
         regularVM.setLocationRelativeTo(null);
@@ -133,7 +131,7 @@ public class SampleView {
     }
 
     // Regular Vending Machine GUI
-    public void RegularVM(){
+    public void showRegularVM() {
         JFrame regularVM = new JFrame("Regular Vending Machine");
         regularVM.setSize(480, 780);
 
@@ -145,7 +143,7 @@ public class SampleView {
                 g.drawImage(backgroundImage.getImage(), 0, 0, null);
             }
         };
-        
+
         regularVM.add(regVMBG);
         regularVM.setIconImage(icon.getImage());
         regularVM.setLocationRelativeTo(null);
@@ -156,12 +154,9 @@ public class SampleView {
 
     // For testing
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new SampleView().MainMenu();
-            }
+        SwingUtilities.invokeLater(() -> {
+            SampleView view = new SampleView();
+            view.showMainMenu();
         });
     }
 }
-
