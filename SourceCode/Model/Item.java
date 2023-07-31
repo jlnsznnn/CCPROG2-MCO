@@ -7,6 +7,7 @@ public class Item {
     private final String name;
     private double calories;
     private double price;
+    private boolean isSellable;
     //private int quantity;
 
     /**
@@ -21,7 +22,7 @@ public class Item {
         this.name = name;
         this.calories = calories;
         this.price = price;
-        //this.quantity = quantity;
+        this.isSellable = false;
     }
 
     /**
@@ -51,14 +52,9 @@ public class Item {
         return this.price;
     }
 
-    /**
-     * Gets the quantity of an item
-     * 
-     * @return         Total quantity of an item
-     
-    public int getQuantity() {
-        return this.quantity;
-    }*/
+    public boolean getIsSellable() {
+        return this.isSellable;
+    }
 
     /**
      * Sets a new price for an item
@@ -69,13 +65,7 @@ public class Item {
         this.price = price;
     }
 
-    /**
-     * Sets a quantity for the item
-     * 
-     * @param          Quantity of the item
-     
-    public void setQuantity(int quantity){
-        this.quantity = quantity;
+    public void setIsSellable(boolean status) {
+        this.isSellable = status;
     }
-    */
 }

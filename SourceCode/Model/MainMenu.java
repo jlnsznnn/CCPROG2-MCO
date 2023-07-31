@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class MainMenu {
     private Scanner sc;
     private VendingMachine vendingMachine;
+    private SpecialVendingMachine specialVendingMachine;
 
     /**
      * Constructs a main menu object of the vending machine, which is set to null
@@ -14,6 +15,7 @@ public class MainMenu {
     public MainMenu() {
         this.sc = new Scanner(System.in);
         this.vendingMachine = new VendingMachine();
+        this.specialVendingMachine = new SpecialVendingMachine();
     }
 
     /**
@@ -64,6 +66,8 @@ public class MainMenu {
      */
     public void createSpecialVendingMachine() {
         System.out.println("\nSpecial Vending Machine is successfully created!");
+        specialVendingMachine.displayMenu();
+        specialVendingMachine.testVendingMachine();
     }
  
  

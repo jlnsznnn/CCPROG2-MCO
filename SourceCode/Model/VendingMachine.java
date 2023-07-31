@@ -351,7 +351,7 @@ public class VendingMachine {
      * @param max               Maximum value limit
      * @return                  Input of user
      */
-    private int getUserInput(int min, int max) {
+    protected int getUserInput(int min, int max) {
         int input;
 
         while (true) {
@@ -368,7 +368,7 @@ public class VendingMachine {
         return input;
     }
     
-       /**
+    /**
      * Tests the vending features of the machine
      */
     public void testVendingFeatures() {
@@ -406,14 +406,7 @@ public class VendingMachine {
         itemChoice = getUserInput(1, slotList.size()); 
         price = slotList.get(itemChoice-1).getSpecificItem().getPrice();
 
-        System.out.println();
-        System.out.println("---------------------------------------------\n");
-        System.out.println("The total amount is PHP " + price);
-        System.out.println();
-        System.out.println("[1] Proceed with Transaction");
-        System.out.println("[2] Cancel Transaction"); 
-        System.out.println("[3] Exit Menu"); 
-        System.out.print("\nInput Choice: ");
+        displayPaymentOptions(price);
 
         input = getUserInput(1, 3);
         System.out.println();
@@ -459,6 +452,17 @@ public class VendingMachine {
          }else {
             testVendingMachine();
         }
+    }
+
+    public void displayPaymentOptions(double price) {
+        System.out.println();
+        System.out.println("---------------------------------------------\n");
+        System.out.println("The total amount is PHP " + price);
+        System.out.println();
+        System.out.println("[1] Proceed with Transaction");
+        System.out.println("[2] Cancel Transaction"); 
+        System.out.println("[3] Exit Menu"); 
+        System.out.print("\nInput Choice: ");
     }
 
     /**
