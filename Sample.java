@@ -131,7 +131,7 @@ public class Sample extends JFrame {
                 String price = priceTextArea.getText().trim();
 
                 if (name.isEmpty() || quantity.isEmpty() || calories.isEmpty() || price.isEmpty()) {
-                    showErrorMessage("Please fill in all the required fields.");
+                    JOptionPane.showMessageDialog(Sample.this, "Please fill in all the required fields.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     try {
                         double caloriesValue = Double.parseDouble(calories);
@@ -142,19 +142,20 @@ public class Sample extends JFrame {
                             nameComboBox.removeItem(name);
                             options.clear();
                             updateTextField();
-                            showSaveMessage();
-                            clearTextAreas(); // Clear the text areas after saving
+                            JOptionPane.showMessageDialog(Sample.this, "Saved successfully!", "Save Success", JOptionPane.INFORMATION_MESSAGE);
+                            caloriesTextArea.setText(""); // Clear the text areas after saving
+                            priceTextArea.setText(""); // Clear the text areas after saving
                             savedItemCount++;
                         } else {
-                            redirectToOtherMethod();
+                            JOptionPane.showMessageDialog(Sample.this, "You have reached the maximum limit of 12 items.", "Limit Reached", JOptionPane.WARNING_MESSAGE);
                         }
                     } catch (NumberFormatException ex) {
-                        showErrorMessage("Please enter valid numeric values for Calories and Price.");
+                        JOptionPane.showMessageDialog(Sample.this, "Please enter valid numeric values for Calories and Price.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
         });
-                constraints.gridx = 0;
+        constraints.gridx = 0;
         constraints.gridy = 5;
         constraints.gridwidth = 3;
         constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -166,33 +167,6 @@ public class Sample extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
-    }
-
-    private void updateTextField() {
-        if (!options.isEmpty()) {
-            textField.setText(options.get(0)); // Display the most recent option
-        } else {
-            textField.setText(""); // Clear the text field if no option is selected
-        }
-    }
-
-    private void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    private void showSaveMessage() {
-        JOptionPane.showMessageDialog(this, "Item saved successfully!", "Save Success", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    private void clearTextAreas() {
-        caloriesTextArea.setText("");
-        priceTextArea.setText("");
-    }
-
-    private void redirectToOtherMethod() {
-        // You can implement the redirection logic here, such as calling another method or displaying another JFrame.
-        // For simplicity, we'll just display a message using JOptionPane.
-        JOptionPane.showMessageDialog(this, "You have reached the maximum limit of 12 items.", "Limit Reached", JOptionPane.WARNING_MESSAGE);
     }
 
     public static void main(String[] args) {
