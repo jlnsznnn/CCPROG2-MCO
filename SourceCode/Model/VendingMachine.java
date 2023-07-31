@@ -7,10 +7,10 @@ import java.util.Scanner;
  *  collecting payment, producing change, and performing maintenance
  */
 public class VendingMachine {
-    private Scanner sc;
-    private ArrayList<Slot> slotList;
-    private Denominations payment;
-    private Inventory startingInventory;
+    protected Scanner sc;
+    protected ArrayList<Slot> slotList;
+    protected Denominations payment;
+    protected Inventory startingInventory;
 
     /**
      * Constructs a vending machine object
