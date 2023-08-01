@@ -1,4 +1,4 @@
-package SourceCode.Model;
+
 /**
  * 	The item class represents a product inside a vending machine. It is composed of attributes
  *  such as name, calories, price, and quantity

@@ -1,4 +1,4 @@
-package SourceCode.Model;
+
 /**
  * 	The Denominations class is a representation of the different coins and bills to be
  *  inserted and dispensed in the vending machine. 

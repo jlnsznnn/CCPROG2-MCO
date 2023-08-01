@@ -1,5 +1,3 @@
-package SourceCode.Model;
-
 /**
  * This Maintenance class is the representation of the maintenance features of the created vending machine. 
  * This class contains the item and money to be used for the maintenance features. The maintenance features 
