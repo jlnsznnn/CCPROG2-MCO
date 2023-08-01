@@ -67,7 +67,7 @@ public class MaintenanceView extends JFrame implements ActionListener {
         switch (buttonName) {
             case "Restock Item":
                 // Add code to execute "Restock Item" method
-                // contentPanel.add(new JLabel("Restock Item Method"));
+                //contentPanel.add(new JLabel("Restock Item Method"));
                 break;
             case "Set Price":
                 // Add code to execute "Set Price" method
@@ -105,6 +105,8 @@ public class MaintenanceView extends JFrame implements ActionListener {
         contentPanel.revalidate();
         contentPanel.repaint();
     }
+
+    public void displayRestockItem() {}
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(MaintenanceView::new);
