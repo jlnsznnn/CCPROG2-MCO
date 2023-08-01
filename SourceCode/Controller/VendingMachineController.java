@@ -1,5 +1,7 @@
 package SourceCode.Controller;
+
 import SourceCode.View.VendingMachineView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,13 +11,11 @@ import javax.swing.*;
 public class VendingMachineController {
     private ArrayList<String> savedItems = new ArrayList<>();
     private int savedItemCount = 0; // Initialize to 0
-    private boolean isChooseButtonClicked = false; 
-    private VendingMachineView vendingMachineView;
+    private boolean isChooseButtonClicked = false;
 
     public VendingMachineController(VendingMachineView vendingMachineView ) {
-        this.vendingMachineView = vendingMachineView;
 
-        this.vendingMachineView.setMenuButtonListener(new ActionListener() {
+        vendingMachineView.setMenuButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 int choice;

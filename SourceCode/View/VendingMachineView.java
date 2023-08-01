@@ -1,8 +1,8 @@
 package SourceCode.View;
+
 import javax.swing.*;
 
 //import SourceCode.Controller.VendingMachineController;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -26,7 +26,7 @@ public class VendingMachineView {
         this.frame = new JFrame("Greens & Grains");
 
         // Create a background image label 
-        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Images/VM BG.png"));
+        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Images/VM BGM.png"));
         this.mainBG = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -35,7 +35,7 @@ public class VendingMachineView {
             }
         };
 
-        this.frame.setSize(480, 780); // Set the size of the frame
+        this.frame.setSize(480, 680); // Set the size of the frame
         this.frame.setIconImage(icon.getImage());
 
         this.titleSpace = new JLabel();
@@ -161,7 +161,7 @@ public class VendingMachineView {
 
     // Regular Vending Machine GUI
     public void CustomRVM() {
-        customVM.setSize(480, 780);
+        customVM.setSize(480, 680);
     
         final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Images/ASK USER RVM.png"));
         JPanel regVMBG = new JPanel(new GridBagLayout()) {
