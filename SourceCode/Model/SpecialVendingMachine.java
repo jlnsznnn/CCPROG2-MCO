@@ -1,14 +1,8 @@
 package SourceCode.Model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class SpecialVendingMachine extends VendingMachine {
-    private Scanner sc;
-    private ArrayList<Slot> slotList;
-    private Denominations payment;
-    private Inventory startingInventory;
-
     /**
      * Constructs a special vending machine object
      */

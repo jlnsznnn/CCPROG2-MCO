@@ -1,27 +1,26 @@
 package SourceCode.Controller;
+
+import SourceCode.View.VendingMachineView;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
-import SourceCode.View.VendingMachineView;
-
 public class VendingMachineController {
     private ArrayList<String> savedItems = new ArrayList<>();
     private int savedItemCount = 0; // Initialize to 0
-    private boolean isChooseButtonClicked = false; 
-    private VendingMachineView vendingMachineView;
+    private boolean isChooseButtonClicked = false;
 
     public VendingMachineController(VendingMachineView vendingMachineView ) {
-        this.vendingMachineView = vendingMachineView;
 
-        this.vendingMachineView.setMenuButtonListener(new ActionListener() {
+        vendingMachineView.setMenuButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 int choice;
                 if(e.getSource() == vendingMachineView.getMenuButton1()){
-                    JOptionPane.showMessageDialog( vendingMachineView.getFrame(), "Regular Vending Machine is created successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(vendingMachineView.getFrame(), "Regular Vending Machine is created successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
                     // INSERT CODE
                     vendingMachineView.CustomRVM();
                     vendingMachineView.getFrame().setVisible(false);
@@ -71,8 +70,7 @@ public class VendingMachineController {
                 } else {
                     try {
                         //double caloriesValue = Double.parseDouble(calories);
-                        //double priceValue = Double.parseDouble(price);
-
+                        
                         if (!isChooseButtonClicked) {
                             JOptionPane.showMessageDialog(vendingMachineView.getCustomRVMFrame(), "Please click 'Choose' to select an item before saving.", "Error", JOptionPane.ERROR_MESSAGE);
                         } else if (savedItemCount < 12) {
@@ -108,8 +106,6 @@ public class VendingMachineController {
             }
         });
     }
-
-    // Other methods in the VendingMachineController...
 
     // Getter for savedItemCount (if needed)
     public int getSavedItemCount() {
