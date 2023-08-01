@@ -16,6 +16,7 @@ public class MainMenuController {
                     JOptionPane.showMessageDialog(mainMenuView.getFrame(), "Regular Vending Machine is created successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
                     // INSERT CODE
                     RegularVendingView regularVendingView = new RegularVendingView();
+                    new RegularVendingController(regularVendingView);
                     regularVendingView.CustomRVM();
                     mainMenuView.getFrame().setVisible(false);
                 } else if (e.getSource() == mainMenuView.getMenuButton2()) {

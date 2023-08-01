@@ -1,5 +1,3 @@
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -73,9 +71,11 @@ public class RegularVendingController {
                             regularVendingView.getPriceInput().setText(""); // Clear the text areas after saving
                             regularVendingView.getTextField().setText("");
                             savedItemCount++; // Increment savedItemCount when an item is successfully saved
-                        //} else {
-                            //vendingMachineView.RegularVM();
-                        }
+                        //if (savedItemCount == 12){
+                            //regularVendingView.getFrame().setVisible(false);
+                            //regularVendingView.displayVendingMachine();
+                        //}
+                    }
 
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Please enter valid numeric values for Calories and Price.", "Error", JOptionPane.ERROR_MESSAGE);

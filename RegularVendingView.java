@@ -186,14 +186,44 @@ public class RegularVendingView {
         return frame;
     }
 
-    public static void main(String[] args) {
-        // Create a RegularVendingView instance
-        RegularVendingView regularVendingView = new RegularVendingView();
+    public void displayVendingMachine() {
+        // Initialize frame 
+        this.frame = new JFrame("Greens & Grains");
+        frame.setSize(480, 680);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
+        frame.setIconImage(icon.getImage());
+    
+        // Create the background panel with the image
+        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Images/TEMPLATE.png"));
+        JPanel regVMBG = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
         
-        // Show the RegularVendingView frame
-        regularVendingView.CustomRVM();
+        // add other components
+        
+    
+        // Add the background panel to the frame
+        frame.setContentPane(regVMBG);
+    
+        // Show the frame after all components are added
+        frame.setVisible(true);
     }
 
+    public static void main(String[] args) {
+        // Create a RegularVendingView instance
+        RegularVendingView regularVendingView = new RegularVendingView();   
+        // Create a RegularVendingController instance and pass the RegularVendingView to it
+        new RegularVendingController(regularVendingView);
+        // Show the RegularVendingView frame
+        regularVendingView.CustomRVM();
+        regularVendingView.displayVendingMachine();
+    }
 }
 
 
