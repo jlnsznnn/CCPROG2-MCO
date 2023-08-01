@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import SourceCode.View.MainMenuView;
+import SourceCode.View.RegularVendingView;
 
 public class MainMenuController {
 
@@ -16,7 +17,8 @@ public class MainMenuController {
                 if(e.getSource() == mainMenuView.getMenuButton1()){
                     JOptionPane.showMessageDialog(mainMenuView.getFrame(), "Regular Vending Machine is created successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
                     // INSERT CODE
-                    //mainMenuView.CustomRVM();
+                    RegularVendingView regularVendingView = new RegularVendingView();
+                    regularVendingView.CustomRVM();
                     mainMenuView.getFrame().setVisible(false);
                 } else if (e.getSource() == mainMenuView.getMenuButton2()) {
                     JOptionPane.showMessageDialog(mainMenuView.getFrame(), "Special Vending Machine is created successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
