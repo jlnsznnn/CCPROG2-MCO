@@ -3,16 +3,22 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.*;
 import javax.swing.*;
-
+/**
+ * 	This RegularVendingController class is linked to the model and view of the regular vending machine
+ */
 public class RegularVendingController {
+    // Attributes
     private ArrayList<String> savedItems = new ArrayList<>();
     private int savedItemCount = 0; // Initialize to 0
     private boolean isChooseButtonClicked = false; 
-    protected VendingMachine regularVendingModel; // add
-    protected RegularVendingView regularVendingView; // add
+    protected VendingMachine regularVendingModel; 
+    protected RegularVendingView regularVendingView;
+    protected Denominations denominations; 
     private int index;
-    protected Denominations denominations;
 
+    /**
+     * Constructs a RegularVendingController object
+     */
     public RegularVendingController(VendingMachine regularVendingModel, RegularVendingView regularVendingView) {
         this.regularVendingModel = regularVendingModel;
         this.regularVendingView = regularVendingView;
@@ -25,7 +31,9 @@ public class RegularVendingController {
         payAction();
     }
 
-    // Choose item
+    /**
+     * Chooses an item based on the button selected
+     */
     public void chooseButtonAction() {
         JButton chooseButton = this.regularVendingView.getChooseButton();
 
@@ -53,6 +61,7 @@ public class RegularVendingController {
                 String calories = regularVendingView.getCaloriesInput().getText().trim();
                 String price = regularVendingView.getPriceInput().getText().trim();
 
+                // Check if any of the inputs are empty
                 if (name.isEmpty() || quantity.isEmpty() || calories.isEmpty() || price.isEmpty()) {
                     JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Please fill in all the required fields.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
@@ -86,7 +95,7 @@ public class RegularVendingController {
                             if (regularVendingView.getNameOptions().getItemCount() > 0) {
                                 regularVendingView.getTextField().setText((String) regularVendingView.getNameOptions().getItemAt(0));
                             } else {
-                                regularVendingView.getTextField().setText("");
+                                regularVendingView.getTextField().setText(""); // Clear the text areas
                             }
 
                             JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Saved successfully!", "Save Success", JOptionPane.INFORMATION_MESSAGE);
@@ -95,7 +104,8 @@ public class RegularVendingController {
                             regularVendingView.getTextField().setText("");
                             savedItemCount++; // Increment savedItemCount when an item is successfully saved
 
-                            if (savedItemCount == 12){ // TODO 
+                            // required number of slots
+                            if (savedItemCount == 12){ 
                             regularVendingView.getFrame().setVisible(false);
                             regularVendingView.displayVendingMachine();
                         }
@@ -109,6 +119,9 @@ public class RegularVendingController {
         }); 
     }
 
+    /**
+     * Receives the user payment
+     */
     public void payAction() {
         JButton payButton = this.regularVendingView.getPayButton();
         payButton.addActionListener(new ActionListener() {
@@ -119,6 +132,9 @@ public class RegularVendingController {
         });
     }
     
+    /**
+     * Displays the denominations upon payment
+     */
     private void showPaymentOptionsFrame() {
         // Create a new frame for the payment options
         JFrame paymentFrame = new JFrame("Payment Options");
@@ -156,6 +172,9 @@ public class RegularVendingController {
         paymentFrame.setVisible(true);
     }
     
+    /**
+     * Inserts coins into the machine and dispenses change
+     */
     private void displayCoinsFrame(JFrame paymentFrame) {
         // Close the paymentFrame before displaying the coins frame
         paymentFrame.dispose();
@@ -196,7 +215,7 @@ public class RegularVendingController {
                 int price = (int)regularVendingModel.getSlotList().get(index).getSpecificItem().getPrice();
                 int change;
                 
-
+                // Check if the amount supplied is correct
                 if(price > (numberOfCoins*quantity)) {
                     JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Insufficient Payment. Please try again.", "Notice", JOptionPane.ERROR_MESSAGE);
                 } else {
@@ -209,10 +228,6 @@ public class RegularVendingController {
                         coinsFrame.setVisible(false);
                     }
                 }
-                
-                // Process the payment with the selected number of coins and quantity
-                // You can add your payment processing logic here
-                // For example, update the total payment amount and proceed with the transaction.
             }
         });
     
@@ -287,10 +302,6 @@ public class RegularVendingController {
                         billsFrame.setVisible(false);
                     }
                 }
-
-                // Process the payment with the selected number of bills and quantity
-                // You can add your payment processing logic here
-                // For example, update the total payment amount and proceed with the transaction.
             }
         });
     
@@ -309,6 +320,9 @@ public class RegularVendingController {
         billsFrame.setVisible(true);
     }
 
+    /**
+     * Counts the digits in the total amount of change
+     */
     private int countDigits(int change) {
         int temp;
         int count = 0;
@@ -328,8 +342,8 @@ public class RegularVendingController {
     /**
      * Produces change based on the amount of payment the user gave.
      * 
-     * @param price     Price of the item
-     * @param payment   Inputted payment from the user
+     * @param           Price of the item
+     * @param           Inputted payment from the user
      */
     public void produceChange(double price, double payment) {
         int i;
@@ -423,6 +437,7 @@ public class RegularVendingController {
             }
         }
         
+        // 0 means the user inserted the exact amount
         if(change == 0)
             System.out.println("\n[ Thank you for inserting the exact amount! ]\n");
         else
@@ -431,24 +446,24 @@ public class RegularVendingController {
         System.out.println();
     }
 
-    
+    /**
+     * Inserts coins into the machine and dispenses change
+     */
     public void dispenseItemAction() {
         JButton dispenseButton = this.regularVendingView.getDispenseButton();
-        int slotNumber = this.regularVendingView.getLastClickedSlotIndex();
-        // Add actionListener to dispenseButton
+        
+            // Add actionListener to dispenseButton
             dispenseButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // TODO Add code to check denominations, get qty of coins and bills
-                    // before dispensing make sure there is enough change
-                    // + make sure the amount supplied by the user is enough
-                    // display item dispensed (image)
-                    // Optionally, you can display a thank you message after the user closes the image dialog.
                     JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Thank you for purchasing!", "Thank You", JOptionPane.INFORMATION_MESSAGE);
                 }
             });
     }
 
+    /**
+     * Displays that customization features are only available for special vending machines
+     */
     public void customizeAction(){
         JButton customButton = this.regularVendingView.getCustomizeButton();
         customButton.addActionListener(new ActionListener() {
@@ -460,6 +475,9 @@ public class RegularVendingController {
         });
     }
 
+    /**
+     * Displays the MaintenanceView class upon clicking the maintenance button
+     */
     public void maintenanceAction(){
         JButton maintenanceButton = this.regularVendingView.getMaintenanceButton();
         maintenanceButton.addActionListener(new ActionListener() {
@@ -470,15 +488,29 @@ public class RegularVendingController {
         });
     }
     
-    // Getter for savedItemCount (if needed)
+    /**
+     * Getter for savedItemCount
+     * 
+     * @return          savedItemCount
+     */
     public int getSavedItemCount() {
         return savedItemCount;
     }
     
+    /**
+     * Getter for savedItems
+     * 
+     * @return          savedItems
+     */
     public ArrayList<String> getSavedItems() {
         return savedItems;
     }
 
+    /**
+     * Getter for slotList
+     * 
+     * @return          slotList
+     */
     public ArrayList<Slot> getSlotList() {
         return this.regularVendingModel.getSlotList();
     }

@@ -1,17 +1,24 @@
 import javax.swing.*;
-import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * 	This MaintenanceController implements the ActionListener interface
+ */
 public class MaintenanceController implements ActionListener {
-    //private MainMenuView mainMenuView;
     private MaintenanceView maintenanceView;
 
+    /**
+     * 	Constructs a MaintenanceController object
+     */
     public MaintenanceController(MaintenanceView maintenanceView) {
-        //this.mainMenuView = mainMenuView;
         this.maintenanceView = maintenanceView;
     }
 
+    /**
+     * 	Peforms actions based on the chosen button
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String buttonName = e.getActionCommand();
@@ -46,9 +53,6 @@ public class MaintenanceController implements ActionListener {
             maintenanceView.getTransactionsFrame().add(new JLabel("Replenish Money Frame"));
             maintenanceView.getTransactionsFrame().setVisible(true);
         } else if (buttonName.equals("Exit")) {
-            //new MainMenuController(mainMenuView);
         }
     }
-
-    // ... Your other custom frame creation methods ...
 }

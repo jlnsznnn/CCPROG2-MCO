@@ -1,5 +1,3 @@
-
-
 import javax.swing.*;
 
 import java.awt.*;
@@ -13,6 +11,9 @@ public class MainMenuView {
     private JLabel titleSpace;
     private GridBagConstraints gbc;
 
+    /**
+    * This MainMenuView represents the 'View' of the MVC architecture that we used for our Main Menu
+    */
     public MainMenuView(){
         this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
         this.frame = new JFrame("Greens & Grains");
@@ -45,6 +46,9 @@ public class MainMenuView {
         initializeGUI();
     }
 
+    /**
+    * Initializes some of the GUI components we declared
+    */
     private void initializeGUI() {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(15, 5, 5, 5);
@@ -76,39 +80,48 @@ public class MainMenuView {
         frame.getContentPane().add(mainBG);
     }
 
-    // Method to set the menu button listener
+    /**
+    * Setter for the Menu Button Listener    
+    */
     public void setMenuButtonListener(ActionListener menuButtonListener) {
         menuBtn1.addActionListener(menuButtonListener);
         menuBtn2.addActionListener(menuButtonListener);
         menuBtn3.addActionListener(menuButtonListener);
     }
 
-    // Getters
+    /**
+     * Gets the current frame
+     * 
+     * @return             frame
+     */
     public JFrame getFrame() {
         return frame;
     }
 
+    /**
+     * Gets the Regular Vending Machine button in the main menu
+     * 
+     * @return             first menu button
+     */
     public JButton getMenuButton1() {
         return menuBtn1;
     }
 
+    /**
+     * Gets the Speecial Vending Machine button in the main menu
+     * 
+     * @return             second menu button
+     */
     public JButton getMenuButton2() {
         return menuBtn2;
     }
 
+    /**
+     * Gets the Exit button in the main menu
+     * 
+     * @return             third menu button
+     */
     public JButton getMenuButton3() {
         return menuBtn3;
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                MainMenuView view = new MainMenuView();
-                new MainMenuController(view); // Remove the variable declaration if not needed
-                view.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                view.getFrame().setVisible(true);
-            }
-        });
-    }    
 }

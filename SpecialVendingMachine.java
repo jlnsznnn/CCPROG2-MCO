@@ -1,7 +1,13 @@
 import java.util.ArrayList;
 
+/**
+ * 	This SpecialVendingMachine class inherits the Regular VendingMachine class.
+ *  It allows for creating slots, dispensing an item, collecting payment, producing change, 
+ *  and performing maintenance. This class also allows dispensing customized items.
+ */
 public class SpecialVendingMachine extends VendingMachine {
     private ArrayList<Item> itemCombo;
+
     /**
      * Constructs a special vending machine object
      */
@@ -10,6 +16,10 @@ public class SpecialVendingMachine extends VendingMachine {
         this.itemCombo = new ArrayList<>();
     }
 
+    /**
+     * Overrides the displayMenu method from the superclass and it modifies it
+     * such that the item can be dispensed alone or not.
+     */
     @Override
     public void displayMenu() {
         int slots;
@@ -74,11 +84,11 @@ public class SpecialVendingMachine extends VendingMachine {
             isSellable = sc.nextInt();
             
             Item item = new Item(name, calories, price, quantity);
-                
-            if(isSellable == 1) {
-                item.setIsSellable(true);
+            
+            if(isSellable == 1) {          // isSellable means the item can be sold alone
+                item.setIsSellable(true);  // can be sold alone
             } else if(isSellable == 2) {
-                item.setIsSellable(false);
+                item.setIsSellable(false); // cannot be sold alone
             }
                 
             Slot slot = new Slot(i+1, item); 
@@ -98,14 +108,9 @@ public class SpecialVendingMachine extends VendingMachine {
         super.displaySlots();
     }
 
-    public void displayDispensedItems(ArrayList<Item> comboList) {
-        System.out.println("Preparing " + comboList.get(0).getName() + "...");
-        System.out.println("Mixing " + comboList.get(1).getName() + "...");
-        System.out.println("Adding " + comboList.get(2).getName() + "...");
-        System.out.println("Combining " + comboList.get(3).getName() + "...");
-        System.out.println("Tossing " + comboList.get(4).getName() + "...");
-    }
-
+    /**
+     * Tests the vending features of the machine
+     */
     @Override
     public void testVendingFeatures() {
         int i;
@@ -202,14 +207,15 @@ public class SpecialVendingMachine extends VendingMachine {
             System.out.print("\nInput Choice: ");
             input = getUserInput(1, 2);
 
+            // Redirect
             if(input == 1) {
                 System.out.println();
                 testVendingFeatures();
             } else {
                 super.testVendingMachine();
             }
-        // Dispense a combo
-        } else if (input == 2) {    
+
+        } else if (input == 2) {    // Dispense a combo 
             price = 0;
 
             // Combo choices
@@ -219,9 +225,9 @@ public class SpecialVendingMachine extends VendingMachine {
             System.out.println("[4] Cobb Salad");
             System.out.println("[5] Chicken Salad");
             System.out.println("Input: ");
-            
             itemChoice = super.getUserInput(1, 5); 
             
+            // Items in a combo
             switch(itemChoice) {
                 case 1: itemCombo = dispenseItems("Lettuce", "Dressing", "Croutons", "Roasted Chicken", "Fresh Herbs"); break;
                 case 2: itemCombo = dispenseItems("Lettuce", "Dressing", "Boiled Egg", "Tomato", "Grapes"); break;
@@ -230,6 +236,7 @@ public class SpecialVendingMachine extends VendingMachine {
                 case 5: itemCombo = dispenseItems("Lettuce", "Dressing", "Fresh Herbs", "Spinach", "Roasted Chicken"); break;
             }
 
+            // Get the price for each item in the chosen combo
             for(i = 0; i < itemCombo.size(); i++) {
                 price += itemCombo.get(i).getPrice();
             }
@@ -274,6 +281,7 @@ public class SpecialVendingMachine extends VendingMachine {
             System.out.print("\nInput Choice: ");
             input = getUserInput(1, 2);
 
+            // Redirect
             if(input == 1) {
                 System.out.println();
                 testVendingFeatures();
@@ -283,10 +291,17 @@ public class SpecialVendingMachine extends VendingMachine {
         }
     }
 
+    /**
+     * Dispenses the list of items in a combo
+     * 
+     * @return        List of items in the combo
+     */
     public ArrayList<Item> dispenseItems(String item1, String item2, String item3, String item4, String item5) {
         clearItemCombo(); // current itemCombo list is cleared each time a user chooses to dispense a combo
         int i;
 
+        // check if the chosen item matches with the item in the slot list,
+        // if it matches, dispense the specific item and add it to the list of combos
         for(i = 0; i < slotList.size(); i++) {
             // Dispense each ingredient
             if(slotList.get(i).getSpecificItem().getName().compareTo(item1) == 0) {
@@ -318,14 +333,22 @@ public class SpecialVendingMachine extends VendingMachine {
         return itemCombo;
     }
 
-    // remove all elements from itemCombo list 
+    /**
+     * Displays the preparation of the customized item
+     */
+    public void displayDispensedItems(ArrayList<Item> comboList) {
+        System.out.println("Preparing " + comboList.get(0).getName() + "...");
+        System.out.println("Mixing " + comboList.get(1).getName() + "...");
+        System.out.println("Adding " + comboList.get(2).getName() + "...");
+        System.out.println("Combining " + comboList.get(3).getName() + "...");
+        System.out.println("Tossing " + comboList.get(4).getName() + "...");
+    }
+                 
+    /**
+     * Removes all items in a combo list
+     */
     public void clearItemCombo() {
-        this.itemCombo.clear();
+        this.itemCombo.clear();     // this is used each time the user chooses to dispense
+                                    // a new combo
     }
-
-    /*
-    public void setSlotList(ArrayList<Slot> slotList) {
-        this.slotList = slotList;
-    }
-    */
 }

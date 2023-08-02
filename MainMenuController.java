@@ -3,9 +3,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
+/**
+ * 	This MainMenuController class is linked to the model and view of the main menu
+ */
 public class MainMenuController {
-
+    /**
+     * Constructs a MainMenuController object
+     */
     public MainMenuController(MainMenuView mainMenuView){
         mainMenuView.setMenuButtonListener(new ActionListener() {
             @Override

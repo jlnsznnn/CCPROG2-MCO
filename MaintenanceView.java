@@ -1,22 +1,16 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+import java.awt.*;
+
+
+/**
+ * 	This MaintenanceView displays the maintenance menu of the vending machine
+ */
 public class MaintenanceView {
     private ImageIcon icon;
     private JFrame frame;
     private JPanel mainPanel;
     private JPanel buttonPanel;
-
-    private JButton restockBtn;
-    private JButton setPriceBtn;
-    private JButton collectMoneyBtn;
-    private JButton replenishMoneyBtn;
-    private JButton startingInventoryBtn;
-    private JButton endingInventoryBtn;
-    private JButton transactionsBtn;
-    private JFrame exitBtn;
 
     private JFrame restockFrame;
     private JFrame setPriceFrame;
@@ -26,6 +20,9 @@ public class MaintenanceView {
     private JFrame endingInventoryFrame;
     private JFrame transactionsFrame;
 
+    /**
+     * 	Constructs a MaintenanceView object
+     */
     public MaintenanceView() {
         // Set up the main frame
         this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
@@ -83,44 +80,67 @@ public class MaintenanceView {
         frame.setVisible(true);
     }
 
+    /**
+     * 	Gets the restockFrame
+     * 
+     *  @return             restockFrame
+     */
     public JFrame getRestockFrame() {
         return restockFrame;
     }
 
+    /**
+     * 	Gets the setPriceFrame
+     * 
+     *  @return             setPriceFrame
+     */
     public JFrame getSetPriceFrame() {
         return setPriceFrame;
     }
 
+    /**
+     * 	Gets the collectMoneyFrame
+     * 
+     *  @return             collectMoneyFrame
+     */
     public JFrame getCollectMoneyFrame() {
         return collectMoneyFrame;
     }
 
+    /**
+     * 	Gets the replenishMoneyFrame
+     * 
+     *  @return             replenishMoneyFrame
+     */
     public JFrame getReplenishMoneyFrame() {
         return replenishMoneyFrame;
     }
 
+    /**
+     * 	Gets the startingInventoryFrame
+     * 
+     *  @return             startingInventoryFrame
+     */
     public JFrame getStartingInventoryFrame() {
         return startingInventoryFrame;
     }
 
-    
+    /**
+     * 	Gets the endingInventoryFrame
+     * 
+     *  @return             endingInventoryFrame
+     */
     public JFrame getEndingInventoryFrame() {
         return endingInventoryFrame;
     }
 
+    /**
+     * 	Gets the transactionsFrame
+     * 
+     *  @return             transactionsFrame
+     */
     public JFrame getTransactionsFrame() {
         return transactionsFrame;
     }
 
-    // ... Other getter methods for remaining frames ...
-
-    public static void main(String[] args) {
-        // Create a new instance of MaintenanceView to display the GUI
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                MaintenanceView maintenanceView = new MaintenanceView();
-            }
-        });
-    }
 }

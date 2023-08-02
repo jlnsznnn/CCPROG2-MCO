@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,7 +7,11 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * 	This RegularVendingView represents the 'View' of the MVC architecture that we used for our Regular Vending Machine
+ */
 public class RegularVendingView {
+
     // Custom RVM attributes
     private ImageIcon icon;
     protected JFrame frame;
@@ -16,25 +21,28 @@ public class RegularVendingView {
     private JTextArea caloriesInput, priceInput;
     private JButton chooseButton, saveButton;
     private GridBagConstraints gbc;
+
     // Regular Vending Machine attributes
     private ArrayList<JButton> buttonList;
-    //private JButton button;
     private JButton payButton;
     private JTextArea chosenItemTextArea;
     private JButton dispenseButton;
     private JButton lastClickedSlot;
     private JButton customizeButton;
     private JButton maintenanceButton;
-    private String[] buttonLabels; // added
+    private String[] buttonLabels; 
     private int buttonIndex;
     private int lastClickedSlotIndex;
     protected ArrayList<Slot> itemList;
 
+    /**
+     * Constructs a regular vending view object
+     */
     public RegularVendingView(){
-        this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
-        this.frame = new JFrame("Customize Your Vending Machine");
+        this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png")); 
+        this.frame = new JFrame("Customize Your Vending Machine"); 
 
-        this.frame.setSize(480, 680); // Set the size of the frame
+        this.frame.setSize(480, 680); 
         this.frame.setIconImage(icon.getImage());
 
         this.gbc = new GridBagConstraints();
@@ -73,9 +81,11 @@ public class RegularVendingView {
         };
     }
 
+    /**
+     * Displays the assigned image as the background of the panel
+     */
     public JPanel displayBackground() {
-        //frame.setSize(480, 680);
-    
+
         final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Images/ASK USER RVM.png"));
         JPanel regVMBG = new JPanel(new GridBagLayout()) {
             @Override
@@ -88,28 +98,30 @@ public class RegularVendingView {
         return regVMBG;
     }
 
-    // Regular Vending Machine GUI
+    /**
+     * Shows the GUI when the user are asked to make their own Regular Vending Machine 
+     */
     public void CustomRVM() {
         frame.setSize(480, 680);
         JPanel regVMBG = displayBackground();
 
         JPanel panel = new JPanel(new GridBagLayout());
 
-        // ITEM NAME
+        // Item Name
         JLabel nameLabel = new JLabel("Item Name: ");
         nameLabel.setFont(new Font("Arial", Font.BOLD, 12));
         nameLabel.setForeground(Color.WHITE);
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(5, 17, 5, 17);
+        gbc.gridx = 0; // Column index 
+        gbc.gridy = 0; // Row index
+        gbc.anchor = GridBagConstraints.WEST; // Anchor point
+        gbc.insets = new Insets(5, 17, 5, 17); // Padding
         panel.add(nameLabel, gbc);
 
         textField.setEditable(false);
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 2; // Columns to span
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Fill component
         panel.add(textField, gbc);
 
         gbc.gridx = 0;
@@ -124,7 +136,7 @@ public class RegularVendingView {
         gbc.fill = GridBagConstraints.NONE;
         panel.add(chooseButton, gbc);
 
-        // ITEM QUANTITY
+        // Item Quantity
         JLabel quantityLabel = new JLabel("Item Quantity: ");
         quantityLabel.setFont(new Font("Arial", Font.BOLD, 12));
         quantityLabel.setForeground(Color.WHITE);
@@ -140,7 +152,7 @@ public class RegularVendingView {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.add(quantityOptions, gbc);
 
-        // ITEM CALORIES
+        // Item Calories
         JLabel caloriesLabel = new JLabel("Item Calories: ");
         caloriesLabel.setFont(new Font("Arial", Font.BOLD, 12));
         caloriesLabel.setForeground(Color.WHITE);
@@ -157,7 +169,7 @@ public class RegularVendingView {
         gbc.fill = GridBagConstraints.BOTH;
         panel.add(caloriesScrollPane, gbc);
 
-        // ITEM PRICE
+        // Item Price
         JLabel priceLabel = new JLabel("Item Price: ");
         priceLabel.setFont(new Font("Arial", Font.BOLD, 12));
         priceLabel.setForeground(Color.WHITE);
@@ -192,8 +204,10 @@ public class RegularVendingView {
         frame.setVisible(true);
     }
 
+    /**
+     * Method that displays the created vending machine that the user has customized
+     */
     public void displayVendingMachine() {
-        // Initialize frame 
         this.frame = new JFrame("Greens & Grains");
         frame.setSize(480, 680);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -219,9 +233,8 @@ public class RegularVendingView {
         int buttonHeight = 20;
         int largeButtonWidth = 100;
         int largeButtonHeight = 40;
-
-        // TODO Set image pathbased on the array from user input
         
+        // Filenames for the images to be displayed on the Vending Machine
         String[] imageFilenames = {
             "1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","9.png","10.png","11.png","12.png",
         };
@@ -229,7 +242,7 @@ public class RegularVendingView {
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add some padding
         
-        // Panel 1: Images at the top (smaller size)
+        // Panel 1 : Vending Machine Products Image
         JPanel imagePanel = new JPanel(new GridLayout(3, columns, hGap, vGap));
         imagePanel.setOpaque(false);
         for (int i = 0; i < imageFilenames.length; i++) {
@@ -245,17 +258,17 @@ public class RegularVendingView {
         }
         mainPanel.add(imagePanel, BorderLayout.NORTH);
 
-        // Panel 2: Buttons and ComboBoxes at the bottom
+        // Panel 2: Buttons and ComboBoxes 
         JPanel buttonsPanel = new JPanel(new BorderLayout());
         buttonsPanel.setOpaque(false);
 
-        // Panel 2 Left: Buttons column
+        // Panel 2 Left: Number Buttons
         JPanel buttonsColumnPanel = new JPanel(new GridLayout(rows, columns, hGap, vGap));
         buttonsColumnPanel.setOpaque(false);
-        //TODO ButtonController buttonController = new ButtonController(currentChosenItemTextArea); // Pass the currentChosenItemTextArea
+
         for (int i = 0; i < (rows * columns); i++) {
-            int finalButtonIndex = i; // Create a final variable for the button index
-            JButton button = new JButton(buttonLabels[i]); // Use the buttonLabels array
+            int finalButtonIndex = i; 
+            JButton button = new JButton(buttonLabels[i]); 
             button.setActionCommand(Integer.toString(i)); 
             buttonList.add(button);
             button.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -265,34 +278,30 @@ public class RegularVendingView {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    //chosenItemTextArea.setText(Integer.toString(finalButtonIndex + 1));
                     chosenItemTextArea.setText(""); // Clears the text area
-                    // Perform  custom action based on the clicked button here
                     displayItem(finalButtonIndex);
                     setLastClickedSlotIndex(finalButtonIndex);
                 }
             });
-            
-            // Clear the text area when the button is clicked
             buttonsColumnPanel.add(button);
             buttonList.add(button);
         }        
         buttonsPanel.add(buttonsColumnPanel, BorderLayout.WEST);
 
-        // Panel 2 Right: Text AreachosenItemTextArea
+        // Panel 2 Right: Chosen Item Text Area
         chosenItemTextArea.setEditable(false);
         mainPanel.add(new JScrollPane(chosenItemTextArea), BorderLayout.CENTER);
         
-        // Combo boxes column
+        // Combo boxes column panel
         JPanel comboBoxesColumnPanel = new JPanel(new GridBagLayout());
         comboBoxesColumnPanel.setOpaque(false);
 
-        // Create and add "Pay" button
+        // Creates the 'Pay' button
         payButton.setFont(new Font("Arial", Font.PLAIN, 12));
         payButton.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         comboBoxesColumnPanel.add(payButton, gbc);
        
-        // Create and add "Current Chosen Item" label and text box
+        // Creates  the 'Current Chosen Item' label and text box
         JLabel currentChosenItemLabel = new JLabel("Current Chosen Item:");
         currentChosenItemLabel.setForeground(Color.WHITE); 
         currentChosenItemLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -300,16 +309,14 @@ public class RegularVendingView {
         chosenItemTextArea.setWrapStyleWord(true);
         chosenItemTextArea.setPreferredSize(new Dimension(150, 80));
 
-        // Create and add the Dispense button
+        // Creates  the 'Dispense' button
         dispenseButton.setFont(new Font("Arial", Font.PLAIN, 12));
         dispenseButton.setPreferredSize(new Dimension(100, 30));
         dispenseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle dispense button click event here
                 System.out.println("Dispense button clicked!");
                 String selectedItem = chosenItemTextArea.getText();
-                // You can implement the dispensing logic here based on the selected item
                 System.out.println("Dispensing: " + selectedItem);
             }
         });
@@ -317,18 +324,18 @@ public class RegularVendingView {
         // Add components to the panel with GridBagLayout
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.gridwidth = 3; // Span three columns for the text box and label
+        gbc.gridwidth = 3; 
         gbc.insets = new Insets(0, 0, 5, 0);
         comboBoxesColumnPanel.add(currentChosenItemLabel, gbc);
 
         gbc.gridy = 3;
-        gbc.weighty = 1.0; // Allow the text area to expand vertically
+        gbc.weighty = 1.0; 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(0, 0, 5, 0);
         comboBoxesColumnPanel.add(new JScrollPane(chosenItemTextArea), gbc);
 
         gbc.gridy = 4;
-        gbc.weighty = 0.0; // Reset weighty to 0 for the button
+        gbc.weighty = 0.0; 
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(5, 0, 0, 0);
@@ -336,7 +343,7 @@ public class RegularVendingView {
 
         buttonsPanel.add(comboBoxesColumnPanel, BorderLayout.CENTER);
 
-        // Create and add maintenance button (larger size)
+        // Create and add maintenance button 
         maintenanceButton.setFont(new Font("Arial", Font.PLAIN, 12));
         maintenanceButton.setPreferredSize(new Dimension(largeButtonWidth, largeButtonHeight));
         maintenanceButton.addActionListener(new ActionListener() {
@@ -375,6 +382,9 @@ public class RegularVendingView {
         frame.setVisible(true);
     }
 
+    /**
+     * 	Displays the item and appends it in the Chosen Item Text Area
+     */
     private void displayItem(int index) {
         chosenItemTextArea.append("Item: " + getItems().get(index).getSpecificItem().getName() + "\n"); 
         chosenItemTextArea.append("Price: " + getItems().get(index).getSpecificItem().getPrice() + "\n"); 
@@ -394,113 +404,207 @@ public class RegularVendingView {
             return null;
         }
 
+    // Getters
+
+    /**
+     * Gets the choose button
+     * 
+     * @return             'choose' button
+     */
     public JButton getChooseButton() {
         return chooseButton;
     }
 
+    /**
+     * Gets the save button
+     * 
+     * @return             'save' button
+     */
     public JButton getSaveButton() {
         return saveButton;
     }
 
+    /**
+     * Gets the item's name options
+     * 
+     * @return             name options combo box
+     */
     public JComboBox<String> getNameOptions() {
         return nameOptions;
     }
 
+    /**
+     * Gets the text field of the current item name the user chose
+     * 
+     * @return             textfield
+     */
     public JTextField getTextField() {
         return textField;
     }
 
+    /**
+     * Gets the options for the quanity of each slots
+     * 
+     * @return             quantity options combo box
+     */
     public JComboBox<String> getQuantityOptions() {
         return quantityOptions;
     }
-    
+
+    /**
+     * Gets the text area where the user would input the amount of calories an item have
+     * 
+     * @return             text area for calories input
+     */
     public JTextArea getCaloriesInput() {
         return caloriesInput;
     }
 
+    /**
+     * Gets the text area where the user would input the price an item would have
+     * 
+     * @return             text area for price input
+     */
     public JTextArea getPriceInput() {
         return priceInput;
     }
 
+    /**
+     * Gets the current frame
+     * 
+     * @return             frame
+     */
     public JFrame getFrame() {
         return frame;
     }
 
+    /**
+     * Gets the dispense button
+     * 
+     * @return             'dispense' button
+     */
     public JButton getDispenseButton(){
         return dispenseButton;
     }
 
+    /**
+     * Gets the array list consisting the number buttons
+     * 
+     * @return             button list
+     */
     public ArrayList<JButton> getButtonList() {
         return buttonList;
     }
 
+    /**
+     * Gets the text area where the information about the user's chosen item displays
+     * 
+     * @return             chosen item text area
+     */
     public JTextArea getTextArea() {
         return chosenItemTextArea;
     }
 
+    /**
+     * Gets the user's last clicked number button for the slots
+     * 
+     * @return             last clcked slot
+     */
     public JButton getLastClickedSlot() {
         return this.lastClickedSlot;
     }
 
-    public void setLastClickedSlot(JButton slot) {
-        this.lastClickedSlot = slot;
-    }
 
+    /**
+     * Gets the text area where the information about the user's chosen item displays
+     * 
+     * @return             chosen item text area
+     */
     public JTextArea getChosenItemTextArea() {
         return chosenItemTextArea;
     }
 
+    /**
+     * Gets the customize button that allows the user to customize a salad
+     * 
+     * @return             'customize' button
+     */
     public JButton getCustomizeButton() {
         return customizeButton;
     }
 
+    /**
+     * Gets the maintenance button that allows the user to perform a maintenance 
+     * 
+     * @return             'maintenance' button
+     */
     public JButton getMaintenanceButton() {
         return maintenanceButton;
     }
 
+    /**
+     * Gets the index of the buttons
+     * 
+     * @return             button index
+     */
     public int getButtonIndex() {
         return buttonIndex;
     }
 
+    /**
+     * Gets the label of the buttons
+     * 
+     * @return             buttons label
+     */
     public String[] getButtonLabels() {
         return buttonLabels;
     }
 
+    /**
+     * Gets the index of the user's last clicked button for the slots
+     * 
+     * @return             last clicked slot index
+     */
     public int getLastClickedSlotIndex() {
         return this.lastClickedSlotIndex;
     }
 
+    /**
+     * Gets the list of the items in the slot
+     * 
+     * @return             item list
+     */
     public ArrayList<Slot> getItems() {
         return this.itemList;
     }
 
+    /**
+     * Gets the pay button the user uses when paying
+     * 
+     * @return             'pay' button
+     */
     public JButton getPayButton(){
         return this.payButton;
     }
 
+    /**
+     * Sets the last clicked slot of the user
+     */
+    public void setLastClickedSlot(JButton slot) {
+        this.lastClickedSlot = slot;
+    }
+
+    /**
+     * Sets the index for the user's last clicked slot
+     */
     public void setLastClickedSlotIndex(int index) {
         this.lastClickedSlotIndex = index;
     }
 
+    /**
+     *  Sets the items inside the item lists
+     */
     public void setItems(ArrayList<Slot> items) {
         this.itemList = items;
     }
-
-    public static void main(String[] args) {
-        // Create a RegularVendingView instance
-        RegularVendingView regularVendingView = new RegularVendingView();   
-        // Create a RegularVendingController instance and pass the RegularVendingView to it
-        RegularVendingController regularVendingController = new RegularVendingController(new VendingMachine(), regularVendingView);
-        ArrayList<Slot> savedItems = regularVendingController.getSlotList();
-        regularVendingView.setItems(savedItems);
-        // Show the RegularVendingView frame
-        regularVendingView.CustomRVM();
-        regularVendingView.displayVendingMachine();
-    }
-
 }
-
-
-
-
-

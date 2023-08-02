@@ -1,4 +1,3 @@
-
 /**
  * 	The item class represents a product inside a vending machine. It is composed of attributes
  *  such as name, calories, price, and quantity
@@ -8,7 +7,6 @@ public class Item {
     private double calories;
     private double price;
     private boolean isSellable;
-    //private int quantity;
 
     /**
      * Constructs an item class that takes in a name, calories, price, and quantity
@@ -52,6 +50,11 @@ public class Item {
         return this.price;
     }
 
+    /**
+     * Gets the sellable attribute of the item
+     * 
+     * @return          Price of an item
+     */
     public boolean getIsSellable() {
         return this.isSellable;
     }
@@ -59,12 +62,17 @@ public class Item {
     /**
      * Sets a new price for an item
      * 
-     * @param          New price of the item
+     * @param         New price of the item
      */
     public void setPrice(double price){
         this.price = price;
     }
 
+    /**
+     * Sets a new price for an item
+     * 
+     * @param         New price of the item
+     */
     public void setIsSellable(boolean status) {
         this.isSellable = status;
     }
