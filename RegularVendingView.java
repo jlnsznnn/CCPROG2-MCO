@@ -269,6 +269,7 @@ public class RegularVendingView {
                     chosenItemTextArea.setText(""); // Clears the text area
                     // Perform  custom action based on the clicked button here
                     displayItem(finalButtonIndex);
+                    setLastClickedSlotIndex(finalButtonIndex);
                 }
             });
             

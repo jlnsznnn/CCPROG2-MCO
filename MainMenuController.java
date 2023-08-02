@@ -27,7 +27,7 @@ public class MainMenuController {
                     // Create a SpecialVendingView instance
                     SpecialVendingView specialVendingView = new SpecialVendingView();   
                     // Create a SpecialVendingController instance and pass the RegularVendingView to it
-                    SpecialVendingController specialVendingController = new SpecialVendingController(new SpecialVendingMachine(), new SpecialVendingView());
+                    SpecialVendingController specialVendingController = new SpecialVendingController(new SpecialVendingMachine(), specialVendingView);
                     ArrayList<Slot> savedItems = specialVendingController.getSlotList();
                     specialVendingView.setItems(savedItems);
                     // Show the RegularVendingView frame

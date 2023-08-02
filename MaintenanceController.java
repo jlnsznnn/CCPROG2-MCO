@@ -1,52 +1,54 @@
-import java.awt.event.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MaintenanceController implements ActionListener {
-    private MaintenanceView view;
+    //private MainMenuView mainMenuView;
+    private MaintenanceView maintenanceView;
 
-    public MaintenanceController(MaintenanceView view, String buttonName) {
-        this.view = view;
+    public MaintenanceController(MaintenanceView maintenanceView) {
+        //this.mainMenuView = mainMenuView;
+        this.maintenanceView = maintenanceView;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String buttonName = e.getActionCommand();
-        // Perform specific method based on the clicked button
-        switch (buttonName) {
-            case "Restock Item":
-                System.out.println("Restock Item");
-                // Add code to execute "Restock Item" method
-                // view.setContentPanel(new JLabel("Restock Item Method"));
-                break;
-            case "Set Price":
-                // Add code to execute "Set Price" method
-                // view.setContentPanel(new JLabel("Set Price Method"));
-                break;
-            case "Collect Money":
-                // Add code to execute "Collect Money" method
-                // view.setContentPanel(new JLabel("Collect Money Method"));
-                break;
-            case "Replenish Money":
-                // Add code to execute "Replenish Money" method
-                // view.setContentPanel(new JLabel("Replenish Money Method"));
-                break;
-            case "Starting Inventory":
-                // Add code to execute "Starting Inventory" method
-                // view.setContentPanel(new JLabel("Starting Inventory Method"));
-                break;
-            case "Ending Inventory":
-                // Add code to execute "Ending Inventory" method
-                // view.setContentPanel(new JLabel("Ending Inventory Method"));
-                break;
-            case "Transactions":
-                // Add code to execute "Transactions" method
-                // view.setContentPanel(new JLabel("Transactions Method"));
-                break;
-            case "Exit":
-                // Handle exit action
-                System.exit(0);
-                break;
-            default:
-                break;
+
+        // Check which button was clicked and show the corresponding frame
+        if (buttonName.equals("Restock Item")) {
+            maintenanceView.getRestockFrame().setSize(300, 200);
+            maintenanceView.getRestockFrame().add(new JLabel("Restock Item Frame"));
+            maintenanceView.getRestockFrame().setVisible(true);
+        } else if (buttonName.equals("Set Price")) {
+            maintenanceView.getSetPriceFrame().setSize(300, 200);
+            maintenanceView.getSetPriceFrame().add(new JLabel("Set Price Frame"));
+            maintenanceView.getSetPriceFrame().setVisible(true);
+        } else if (buttonName.equals("Collect Money")) {
+            maintenanceView.getCollectMoneyFrame().setSize(300, 200);
+            maintenanceView.getCollectMoneyFrame().add(new JLabel("Collect Money Frame"));
+            maintenanceView.getCollectMoneyFrame().setVisible(true);
+        } else if (buttonName.equals("Replenish Money")) {
+            maintenanceView.getReplenishMoneyFrame().setSize(300, 200);
+            maintenanceView.getReplenishMoneyFrame().add(new JLabel("Replenish Money Frame"));
+            maintenanceView.getReplenishMoneyFrame().setVisible(true);
+        } else if (buttonName.equals("Starting Inventory")) {
+            maintenanceView.getStartingInventoryFrame().setSize(300, 200);
+            maintenanceView.getStartingInventoryFrame().add(new JLabel("Replenish Money Frame"));
+            maintenanceView.getStartingInventoryFrame().setVisible(true);
+        } else if (buttonName.equals("Ending Inventory")) {
+            maintenanceView.getEndingInventoryFrame().setSize(300, 200);
+            maintenanceView.getEndingInventoryFrame().add(new JLabel("Collect Money Frame"));
+            maintenanceView.getEndingInventoryFrame().setVisible(true);
+        } else if (buttonName.equals("Transactions")) {
+            maintenanceView.getTransactionsFrame().setSize(300, 200);
+            maintenanceView.getTransactionsFrame().add(new JLabel("Replenish Money Frame"));
+            maintenanceView.getTransactionsFrame().setVisible(true);
+        } else if (buttonName.equals("Exit")) {
+            //new MainMenuController(mainMenuView);
         }
     }
+
+    // ... Your other custom frame creation methods ...
 }

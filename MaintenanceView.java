@@ -8,14 +8,32 @@ public class MaintenanceView {
     private JFrame frame;
     private JPanel mainPanel;
     private JPanel buttonPanel;
-    private JPanel contentPanel;
+
+    private JButton restockBtn;
+    private JButton setPriceBtn;
+    private JButton collectMoneyBtn;
+    private JButton replenishMoneyBtn;
+    private JButton startingInventoryBtn;
+    private JButton endingInventoryBtn;
+    private JButton transactionsBtn;
+    private JFrame exitBtn;
+
+    private JFrame restockFrame;
+    private JFrame setPriceFrame;
+    private JFrame collectMoneyFrame;
+    private JFrame replenishMoneyFrame;
+    private JFrame startingInventoryFrame;
+    private JFrame endingInventoryFrame;
+    private JFrame transactionsFrame;
 
     public MaintenanceView() {
         // Set up the main frame
-        icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
+        this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
         frame = new JFrame("Perform Vending Machine Maintenance");
         frame.setSize(480, 680); // Set the size of the frame
         frame.setIconImage(icon.getImage());
+        frame.setResizable(false);
+        frame.setLocationRelativeTo(null);
 
         // Create the main panel and set layout
         mainPanel = new JPanel() {
@@ -42,18 +60,21 @@ public class MaintenanceView {
         };
         for (String name : buttonNames) {
             JButton button = new JButton(name);
-            button.addActionListener(new MaintenanceController(this, name));
+            button.addActionListener(new MaintenanceController(this));
             buttonPanel.add(button);
         }
 
-        // Create the content panel on the right
-        contentPanel = new JPanel();
-        contentPanel.setOpaque(false); // Make the content panel transparent
-        contentPanel.setLayout(new BorderLayout());
+        // Create separate frames for each option
+        restockFrame = new JFrame("Restock Item");
+        setPriceFrame = new JFrame("Set Price");
+        collectMoneyFrame = new JFrame("Collect Money");
+        replenishMoneyFrame = new JFrame("Replenish Money");
+        startingInventoryFrame = new JFrame("Staring Inventory");
+        endingInventoryFrame = new JFrame("Ending Inventory");
+        transactionsFrame = new JFrame("Transactions");
 
-        // Add button panel and content panel to the main panel
+        // Add button panel to the main panel
         mainPanel.add(buttonPanel, BorderLayout.WEST);
-        mainPanel.add(contentPanel, BorderLayout.CENTER);
 
         // Add main panel to the frame
         frame.add(mainPanel);
@@ -62,14 +83,44 @@ public class MaintenanceView {
         frame.setVisible(true);
     }
 
-    public void setContentPanel(Component component) {
-        contentPanel.removeAll();
-        contentPanel.add(component, BorderLayout.CENTER);
-        contentPanel.revalidate();
-        contentPanel.repaint();
+    public JFrame getRestockFrame() {
+        return restockFrame;
     }
 
+    public JFrame getSetPriceFrame() {
+        return setPriceFrame;
+    }
+
+    public JFrame getCollectMoneyFrame() {
+        return collectMoneyFrame;
+    }
+
+    public JFrame getReplenishMoneyFrame() {
+        return replenishMoneyFrame;
+    }
+
+    public JFrame getStartingInventoryFrame() {
+        return startingInventoryFrame;
+    }
+
+    
+    public JFrame getEndingInventoryFrame() {
+        return endingInventoryFrame;
+    }
+
+    public JFrame getTransactionsFrame() {
+        return transactionsFrame;
+    }
+
+    // ... Other getter methods for remaining frames ...
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(MaintenanceView::new);
+        // Create a new instance of MaintenanceView to display the GUI
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                MaintenanceView maintenanceView = new MaintenanceView();
+            }
+        });
     }
 }

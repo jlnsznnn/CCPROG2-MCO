@@ -11,15 +11,18 @@ public class RegularVendingController {
     protected VendingMachine regularVendingModel; // add
     protected RegularVendingView regularVendingView; // add
     private int index;
+    protected Denominations denominations;
 
     public RegularVendingController(VendingMachine regularVendingModel, RegularVendingView regularVendingView) {
         this.regularVendingModel = regularVendingModel;
         this.regularVendingView = regularVendingView;
+        this.denominations = new Denominations();
         this.index = 0;
 
         chooseButtonAction();
         dispenseItemAction();
         customizeAction();
+        payAction();
     }
 
     // Choose item
@@ -119,103 +122,332 @@ public class RegularVendingController {
     private void showPaymentOptionsFrame() {
         // Create a new frame for the payment options
         JFrame paymentFrame = new JFrame("Payment Options");
-        paymentFrame.setSize(300, 200);
+        paymentFrame.setSize(300, 100);
         paymentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         paymentFrame.setLocationRelativeTo(null);
+
+        // Create the choice combo box for payment options
+        String[] paymentOptions = {"Bills", "Coins"};
+        JComboBox<String> paymentComboBox = new JComboBox<>(paymentOptions);
+        paymentComboBox.setEditable(true); // Allow custom input for the combo box
     
-        // Create the choice buttons for coins and bills
-        JButton coinsButton = new JButton("Coins");
-        JButton billsButton = new JButton("Bills");
-    
-        // Add ActionListener to the coinsButton
-        coinsButton.addActionListener(new ActionListener() {
+        // Add an ActionListener to the paymentComboBox
+        paymentComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                displayCoinsSpinner(paymentFrame); // Pass the paymentFrame to dispose it later
+                String selectedOption = (String) paymentComboBox.getSelectedItem();
+                if (selectedOption != null && !selectedOption.equals("Choose your payment denomination: ")) {
+                    if (selectedOption.equals("Bills")) {
+                        displayBillsFrame(paymentFrame);
+                    } else if (selectedOption.equals("Coins")){
+                        displayCoinsFrame(paymentFrame);
+                    }
+                }
             }
         });
     
-        // Add ActionListener to the billsButton
-        billsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                displayBillsSpinner(paymentFrame); // Pass the paymentFrame to dispose it later
-            }
-        });
+        // Set the placeholder text as the selected item but not a selectable option
+        paymentComboBox.setSelectedItem("Choose your payment denominations");
     
-        // Add the buttons to a panel
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1, 10, 10));
-        buttonPanel.add(coinsButton);
-        buttonPanel.add(billsButton);
-    
-        // Add the panel to the frame
-        paymentFrame.add(buttonPanel, BorderLayout.CENTER);
+        // Add the combo box to the frame
+        paymentFrame.add(paymentComboBox, BorderLayout.CENTER);
     
         // Show the frame
         paymentFrame.setVisible(true);
     }
     
-    private void displayCoinsSpinner(JFrame paymentFrame) {
-        // Close the paymentFrame before displaying the coins spinner
+    private void displayCoinsFrame(JFrame paymentFrame) {
+        // Close the paymentFrame before displaying the coins frame
         paymentFrame.dispose();
     
-        // Create a new frame for the coins spinner
+        // Create a new frame for the coins
         JFrame coinsFrame = new JFrame("Coins Payment");
-        coinsFrame.setSize(200, 150);
+        coinsFrame.setSize(250, 150);
         coinsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         coinsFrame.setLocationRelativeTo(null);
     
-        // Create the spinner for coins
+        // Create a label to display payment instructions
+        JLabel instructionLabel = new JLabel("\u20B1");
+    
+        // Create the choice combo box for coins
+        String[] coinOptions = {"1", "5", "10"};
+        JComboBox<String> coinsComboBox = new JComboBox<>(coinOptions);
+    
+        // Create a spinner for coins quantity
         SpinnerModel coinsSpinnerModel = new SpinnerNumberModel(1, 1, 1000, 1); // Start, Minimum, Maximum, Step
         JSpinner coinsSpinner = new JSpinner(coinsSpinnerModel);
-        coinsSpinner.setPreferredSize(new Dimension(100, 30));
     
-        // Add the spinner to the frame
-        coinsFrame.add(coinsSpinner, BorderLayout.CENTER);
+        // Create a button to confirm payment
+        JButton payButton = new JButton("Pay");
+        payButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedCoins = (String) coinsComboBox.getSelectedItem();
+                int numberOfCoins = Integer.parseInt(selectedCoins);
+                int quantity = (int) coinsSpinner.getValue();
+
+                switch(numberOfCoins) {
+                    case 1: denominations.insertOnePesoCoin(quantity); break;
+                    case 5: denominations.insertFivePesoCoin(quantity); break;
+                    case 10: denominations.insertTenPesoCoin(quantity); break;
+                }
+
+                int index = regularVendingView.getLastClickedSlotIndex();
+                int price = (int)regularVendingModel.getSlotList().get(index).getSpecificItem().getPrice();
+                int change;
+                
+
+                if(price > (numberOfCoins*quantity)) {
+                    JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Insufficient Payment. Please try again.", "Notice", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    change = (numberOfCoins*quantity) - price;
+                    if(change <= 0) {
+                        JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Payment Received. Thank you for inserting exact amount", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Payment Received. Your change is PHP " + change + "\nDispensing denominations...", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        produceChange((double)price, (double)(numberOfCoins*quantity));
+                        coinsFrame.setVisible(false);
+                    }
+                }
+                
+                // Process the payment with the selected number of coins and quantity
+                // You can add your payment processing logic here
+                // For example, update the total payment amount and proceed with the transaction.
+            }
+        });
+    
+        // Create a panel to hold the components
+        JPanel coinsPanel = new JPanel(new GridLayout(3, 1));
+        coinsPanel.add(instructionLabel);
+        coinsPanel.add(coinsComboBox);
+        coinsPanel.add(new JLabel("Quantity:"));
+        coinsPanel.add(coinsSpinner);
+        coinsPanel.add(payButton);
+    
+        // Add the panel to the frame
+        coinsFrame.add(coinsPanel);
     
         // Show the frame
         coinsFrame.setVisible(true);
     }
     
-    private void displayBillsSpinner(JFrame paymentFrame) {
-        // Close the paymentFrame before displaying the bills spinner
+    private void displayBillsFrame(JFrame paymentFrame) {
+        // Close the paymentFrame before displaying the bills frame
         paymentFrame.dispose();
     
-        // Create a new frame for the bills spinner
+        // Create a new frame for the bills
         JFrame billsFrame = new JFrame("Bills Payment");
-        billsFrame.setSize(200, 150);
+        billsFrame.setSize(250, 150);
         billsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         billsFrame.setLocationRelativeTo(null);
     
-        // Create the spinner for bills
+        // Create a label to display payment instructions
+        JLabel instructionLabel = new JLabel("\u20B1");
+    
+        // Create the choice combo box for bills
+        String[] billOptions = {"20", "50", "100", "200", "500", "1000"};
+        JComboBox<String> billsComboBox = new JComboBox<>(billOptions);
+    
+        // Create a spinner for bills quantity
         SpinnerModel billsSpinnerModel = new SpinnerNumberModel(1, 1, 1000, 1); // Start, Minimum, Maximum, Step
         JSpinner billsSpinner = new JSpinner(billsSpinnerModel);
-        billsSpinner.setPreferredSize(new Dimension(100, 30));
     
-        // Add the spinner to the frame
-        billsFrame.add(billsSpinner, BorderLayout.CENTER);
+        // Create a button to confirm payment
+        JButton payButton = new JButton("Pay");
+        payButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedBills = (String) billsComboBox.getSelectedItem();
+                int numberOfBills = Integer.parseInt(selectedBills);
+                int quantity = (int) billsSpinner.getValue();
+
+                switch(numberOfBills) {
+                    case 20: denominations.insertOnePesoCoin(quantity); break;
+                    case 50: denominations.insertFivePesoCoin(quantity); break;
+                    case 100: denominations.insertOneHundredPesoBill(quantity); break;
+                    case 200: denominations.insertTwoHundredPesoBill(quantity); break;
+                    case 500: denominations.insertFiveHundredPesoBill(quantity); break;
+                    case 1000: denominations.insertOneThousandPesoBill(quantity); break;
+                }
+
+                int index = regularVendingView.getLastClickedSlotIndex();
+                int price = (int)regularVendingModel.getSlotList().get(index).getSpecificItem().getPrice();
+                int change;
+
+                if(price > (numberOfBills*quantity)) {
+                    JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Insufficient Payment. Please try again.", "Notice", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    change = (numberOfBills*quantity) - price;
+                    if(change <= 0) {
+                        JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Payment Received. Thank you for inserting exact amount", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        billsFrame.setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Payment Received. Your change is PHP " + change + "\nDispensing denominations...", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        produceChange((double)price, (double)(numberOfBills*quantity));
+                        billsFrame.setVisible(false);
+                    }
+                }
+
+                // Process the payment with the selected number of bills and quantity
+                // You can add your payment processing logic here
+                // For example, update the total payment amount and proceed with the transaction.
+            }
+        });
+    
+        // Create a panel to hold the components
+        JPanel billsPanel = new JPanel(new GridLayout(3, 1));
+        billsPanel.add(instructionLabel);
+        billsPanel.add(billsComboBox);
+        billsPanel.add(new JLabel("Quantity:"));
+        billsPanel.add(billsSpinner);
+        billsPanel.add(payButton);
+    
+        // Add the panel to the frame
+        billsFrame.add(billsPanel);
     
         // Show the frame
         billsFrame.setVisible(true);
     }
-    
 
-    public void dispenseItemAction() {
-    JButton dispenseButton = this.regularVendingView.getDispenseButton();
-    int slotNumber = this.regularVendingView.getLastClickedSlotIndex();
-    // Add actionListener to dispenseButton
-    dispenseButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            // TODO Add code to check denominations, get qty of coins and bills
-            // before dispensing make sure there is enough change
-            // + make sure the amount supplied by the user is enough
-            // display item dispensed (image)
-            // Optionally, you can display a thank you message after the user closes the image dialog.
-            JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Thank you for purchasing!", "Thank You", JOptionPane.INFORMATION_MESSAGE);
+    private int countDigits(int change) {
+        int temp;
+        int count = 0;
+
+        // set change to temp
+        temp = change;
+        
+        // continue dividing until temp reaches zero
+        while(temp != 0) {
+            temp /= 10;
+            count++;        // increment the count of digits
         }
-    });
-}
+
+        return count;
+    }
+
+    /**
+     * Produces change based on the amount of payment the user gave.
+     * 
+     * @param price     Price of the item
+     * @param payment   Inputted payment from the user
+     */
+    public void produceChange(double price, double payment) {
+        int i;
+        double digit;
+        double temp = 0;
+        double change;
+        int digits;
+
+        regularVendingView.getChosenItemTextArea().setText("");
+
+        change = payment - price; 
+        digits = countDigits((int)change); // count number of digits
+        
+        // this condition will execute if digit count is more than 1
+        if(digits >= 1) { 
+            // get last digit
+            digit = change % 10;
+            temp = digit;  
+
+            if (digit >= 5 && digit <= 9) { 
+                denominations.setFivePesoCoin(denominations.getFivePesoCount()-1); 
+                regularVendingView.getChosenItemTextArea().append("Dispensing PHP 5.00...\n");
+            } 
+
+            if(digit != 0) {
+                for(i = 0; i < digit; i++) {
+                    denominations.setOnePesoCoin(denominations.getOnePesoCount()-1); 
+                    regularVendingView.getChosenItemTextArea().append("Dispensing PHP 1.00...\n");
+                }
+            }
+        }
+
+        // this condition will execute if digit count is more than 2
+        if(digits >= 2) {
+            // get last digit
+            digit = change % 100 - temp;
+            temp = digit;
+
+            if(digit >= 50 && digit <= 90) {
+                denominations.setFiftyPesoBill(denominations.getFiftyPesoCount()-1); 
+                digit -= 50;
+                regularVendingView.getChosenItemTextArea().append("Dispensing PHP 50.00...\n");
+            } else if(digit >= 20 && digit <= 40) {
+                denominations.setTwentyPesoBill(denominations.getTwentyPesoCount()-1);
+                digit -= 20;
+                regularVendingView.getChosenItemTextArea().append("Dispensing PHP 20.00...\n");
+            } 
+
+            if(digit != 0) {
+                for(i = 0; i < digit; i+=10) {
+                    denominations.setTenPesoCoin(denominations.getTenPesoCount()-1);
+                    regularVendingView.getChosenItemTextArea().append("Dispensing PHP 10.00...\n");
+                }
+            }
+        }
+        
+        // this condition will execute if digit count is more than 3
+        if(digits >= 3) {
+            // get last digit
+            digit = change % 1000 - temp;
+            temp = digit;
+
+            if(digit >= 500 && digit <= 900) {
+                denominations.setFiveHundredPesoBill(denominations.getFiveHundredPesoCount()-1);
+                digit -= 500;
+                regularVendingView.getChosenItemTextArea().append("Dispensing PHP 500.00...\n");
+            } else if(digit >= 200 && digit <= 400) {
+                denominations.setTwoHundredPesoBill(denominations.getTwoHundredPesoCount()-1);
+                digit -= 200;
+                regularVendingView.getChosenItemTextArea().append("Dispensing PHP 200.00...\n");
+            } 
+
+            if(digit != 0) {
+                for(i = 0; i < digit; i+=100) {
+                    denominations.setOneHundredPesoBill(denominations.getOneHundredPesoCount()-1);
+                    regularVendingView.getChosenItemTextArea().append("Dispensing PHP 100.00...\n");
+                }
+            }
+        }
+        
+        // this condition will execute if digit count is more than 4
+        if(digits >= 4) {
+            // get last digit
+            digit = change % 10000 - temp;
+            temp = digit;
+
+            if(digit == 1000) {
+                denominations.setOneThousandPesoBill(denominations.getOneThousandPesoCount()-1);
+                digit -= 1000;
+                regularVendingView.getChosenItemTextArea().append("Dispensing PHP 1000.00...\n");
+            }
+        }
+        
+        if(change == 0)
+            System.out.println("\n[ Thank you for inserting the exact amount! ]\n");
+        else
+            System.out.println("\n[ Change dispensed successfully! Your total change is PHP " + change + " ]");
+
+        System.out.println();
+    }
+
+    
+    public void dispenseItemAction() {
+        JButton dispenseButton = this.regularVendingView.getDispenseButton();
+        int slotNumber = this.regularVendingView.getLastClickedSlotIndex();
+        // Add actionListener to dispenseButton
+            dispenseButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // TODO Add code to check denominations, get qty of coins and bills
+                    // before dispensing make sure there is enough change
+                    // + make sure the amount supplied by the user is enough
+                    // display item dispensed (image)
+                    // Optionally, you can display a thank you message after the user closes the image dialog.
+                    JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Thank you for purchasing!", "Thank You", JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+    }
 
     public void customizeAction(){
         JButton customButton = this.regularVendingView.getCustomizeButton();
@@ -224,6 +456,16 @@ public class RegularVendingController {
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(regularVendingView.getFrame(),"Customization feature is not available for Regular Vending Machines","Notice",
                 JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+    }
+
+    public void maintenanceAction(){
+        JButton maintenanceButton = this.regularVendingView.getMaintenanceButton();
+        maintenanceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MaintenanceController(new MaintenanceView());
             }
         });
     }
