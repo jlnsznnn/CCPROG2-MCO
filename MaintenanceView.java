@@ -3,17 +3,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MaintenanceView extends JFrame implements ActionListener {
+public class MaintenanceView {
+    private ImageIcon icon;
+    private JFrame frame;
     private JPanel mainPanel;
     private JPanel buttonPanel;
     private JPanel contentPanel;
 
     public MaintenanceView() {
         // Set up the main frame
-        setTitle("Maintenance");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(480, 680);
-        setLocationRelativeTo(null);
+        icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
+        frame = new JFrame("Perform Vending Machine Maintenance");
+        frame.setSize(480, 680); // Set the size of the frame
+        frame.setIconImage(icon.getImage());
 
         // Create the main panel and set layout
         mainPanel = new JPanel() {
@@ -21,7 +23,7 @@ public class MaintenanceView extends JFrame implements ActionListener {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 // Load and draw the background image
-                ImageIcon bgImageIcon = new ImageIcon("Images/MAINTENANCE BG.png");
+                ImageIcon bgImageIcon = new ImageIcon(getClass().getResource("/Images/MAINTENANCE BG.png"));
                 Image bgImage = bgImageIcon.getImage();
                 g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
             }
@@ -40,7 +42,7 @@ public class MaintenanceView extends JFrame implements ActionListener {
         };
         for (String name : buttonNames) {
             JButton button = new JButton(name);
-            button.addActionListener(this);
+            button.addActionListener(new MaintenanceController(this, name));
             buttonPanel.add(button);
         }
 
@@ -54,54 +56,15 @@ public class MaintenanceView extends JFrame implements ActionListener {
         mainPanel.add(contentPanel, BorderLayout.CENTER);
 
         // Add main panel to the frame
-        add(mainPanel);
+        frame.add(mainPanel);
 
         // Show the GUI
-        setVisible(true);
+        frame.setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String buttonName = e.getActionCommand();
-        // Perform specific method based on the clicked button
-        switch (buttonName) {
-            case "Restock Item":
-                // Add code to execute "Restock Item" method
-                // contentPanel.add(new JLabel("Restock Item Method"));
-                break;
-            case "Set Price":
-                // Add code to execute "Set Price" method
-                // contentPanel.add(new JLabel("Set Price Method"));
-                break;
-            case "Collect Money":
-                // Add code to execute "Collect Money" method
-                // contentPanel.add(new JLabel("Collect Money Method"));
-                break;
-            case "Replenish Money":
-                // Add code to execute "Replenish Money" method
-                // contentPanel.add(new JLabel("Replenish Money Method"));
-                break;
-            case "Starting Inventory":
-                // Add code to execute "Starting Inventory" method
-                // contentPanel.add(new JLabel("Starting Inventory Method"));
-                break;
-            case "Ending Inventory":
-                // Add code to execute "Ending Inventory" method
-                // contentPanel.add(new JLabel("Ending Inventory Method"));
-                break;
-            case "Transactions":
-                // Add code to execute "Transactions" method
-                // contentPanel.add(new JLabel("Transactions Method"));
-                break;
-            case "Exit":
-                // Handle exit action
-                System.exit(0);
-                break;
-            default:
-                break;
-        }
-
-        // Refresh the content panel to show the changes
+    public void setContentPanel(Component component) {
+        contentPanel.removeAll();
+        contentPanel.add(component, BorderLayout.CENTER);
         contentPanel.revalidate();
         contentPanel.repaint();
     }

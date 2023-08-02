@@ -1,13 +1,13 @@
-
-
 import java.util.ArrayList;
 
 public class SpecialVendingMachine extends VendingMachine {
+    private ArrayList<Item> itemCombo;
     /**
      * Constructs a special vending machine object
      */
     public SpecialVendingMachine() {
         super();
+        this.itemCombo = new ArrayList<>();
     }
 
     @Override
@@ -54,11 +54,6 @@ public class SpecialVendingMachine extends VendingMachine {
             System.out.print("Enter Price: ");
             price = sc.nextDouble();
 
-            System.out.println("Can be sold alone?");
-            System.out.println("[1] Yes");
-            System.out.println("[2] No");
-            isSellable = sc.nextInt();
-            
             do {
                 System.out.print("Enter Quantity: ");
                 quantity = sc.nextInt();
@@ -71,24 +66,30 @@ public class SpecialVendingMachine extends VendingMachine {
                     isValid = 1;
 
             } while (isValid == 0);
+
+            System.out.println("Can be sold alone?");
+            System.out.println("[1] Yes");
+            System.out.println("[2] No");
+            System.out.print("Input: ");
+            isSellable = sc.nextInt();
             
-                Item item = new Item(name, calories, price, quantity);
+            Item item = new Item(name, calories, price, quantity);
                 
-                if(isSellable == 1) {
-                    item.setIsSellable(true);
-                } else if(isSellable == 2) {
-                    item.setIsSellable(false);
-                }
+            if(isSellable == 1) {
+                item.setIsSellable(true);
+            } else if(isSellable == 2) {
+                item.setIsSellable(false);
+            }
                 
-                Slot slot = new Slot(i+1, item); 
+            Slot slot = new Slot(i+1, item); 
                 
-                slotList.add(slot); 
-                slotList.get(i).addItem(quantity);
+            slotList.add(slot); 
+            slotList.get(i).addItem(quantity);
 
-                startingInventory.updateStartingInventory(slot);
-                System.out.println("\nItems are successfully added!"); 
-            } 
-
+            startingInventory.updateStartingInventory(slot);
+            System.out.println("\nItems are successfully added!"); 
+        } 
+        
         System.out.println();
         System.out.println("[ " + slots + " slots are successfully added! ]\n");
         System.out.println("---------------------------------------------");
@@ -97,8 +98,12 @@ public class SpecialVendingMachine extends VendingMachine {
         super.displaySlots();
     }
 
-    public void displayDispensedItems(ArrayList<Item> item) {
-
+    public void displayDispensedItems(ArrayList<Item> comboList) {
+        System.out.println("Preparing " + comboList.get(0).getName() + "...");
+        System.out.println("Mixing " + comboList.get(1).getName() + "...");
+        System.out.println("Adding " + comboList.get(2).getName() + "...");
+        System.out.println("Combining " + comboList.get(3).getName() + "...");
+        System.out.println("Tossing " + comboList.get(4).getName() + "...");
     }
 
     @Override
@@ -203,23 +208,29 @@ public class SpecialVendingMachine extends VendingMachine {
             } else {
                 super.testVendingMachine();
             }
-
-        } else if (input == 2) {    // Dispense a combo
+        // Dispense a combo
+        } else if (input == 2) {    
             price = 0;
 
-            /* add choices */
+            // Combo choices
             System.out.println("[1] Hail Caesar Salad");
-            System.out.println("[2] Cobb Salad");
+            System.out.println("[2] Greek Salad");
+            System.out.println("[3] Nicoise Salad");
+            System.out.println("[4] Cobb Salad");
+            System.out.println("[5] Chicken Salad");
             System.out.println("Input: ");
             
-            itemChoice = super.getUserInput(1, 5); // edit max if needed
+            itemChoice = super.getUserInput(1, 5); 
             
-            if(itemChoice == 1) {
-                // Hail Caesar Ingredient List
-                itemCombo = dispenseItems("Lettuce", "Croutons", "Chicken", "Greek Yogurt", "Olive Oil");
-            } // else Insert other salads
+            switch(itemChoice) {
+                case 1: itemCombo = dispenseItems("Lettuce", "Dressing", "Croutons", "Roasted Chicken", "Fresh Herbs"); break;
+                case 2: itemCombo = dispenseItems("Lettuce", "Dressing", "Boiled Egg", "Tomato", "Grapes"); break;
+                case 3: itemCombo = dispenseItems("Lettuce", "Dressing", "Cucumber", "Roasted Chicken", "Spinach"); break;
+                case 4: itemCombo = dispenseItems("Lettuce", "Dressing", "Crushed Peanuts", "Tomato", "Grapes"); break;
+                case 5: itemCombo = dispenseItems("Lettuce", "Dressing", "Fresh Herbs", "Spinach", "Roasted Chicken"); break;
+            }
 
-            for(i = 0; i < slotList.size(); i++) {
+            for(i = 0; i < itemCombo.size(); i++) {
                 price += itemCombo.get(i).getPrice();
             }
 
@@ -244,8 +255,7 @@ public class SpecialVendingMachine extends VendingMachine {
                     } while (payment < price);
 
                     getPayment().produceChange(price, (double)payment);
-                    dispense = dispenseItem(itemChoice);
-                    displayDispensedItem(dispense);
+                    displayDispensedItems(itemCombo);
                     break; 
                 case 2:
                     System.out.println("Cancelling Transaction...\n");
@@ -257,6 +267,7 @@ public class SpecialVendingMachine extends VendingMachine {
                     break;
             }
 
+            // Ask the user again for input
             System.out.println();
             System.out.println("[1] Dispense Again");
             System.out.println("[2] Exit");
@@ -266,43 +277,55 @@ public class SpecialVendingMachine extends VendingMachine {
             if(input == 1) {
                 System.out.println();
                 testVendingFeatures();
-            }else {
+            } else {
                 testVendingMachine();
             }
         }
     }
 
-    private ArrayList<Item> dispenseItems(String item1, String item2, String item3, String item4, String item5) {
-        ArrayList<Item> itemCombo = new ArrayList<>();
+    public ArrayList<Item> dispenseItems(String item1, String item2, String item3, String item4, String item5) {
+        clearItemCombo(); // current itemCombo list is cleared each time a user chooses to dispense a combo
         int i;
 
         for(i = 0; i < slotList.size(); i++) {
-            // Dispense each ingredient and add the prices of each item
+            // Dispense each ingredient
             if(slotList.get(i).getSpecificItem().getName().compareTo(item1) == 0) {
                 itemCombo.add(slotList.get(i).getSpecificItem());
-                dispenseItem(i+1);
-                System.out.println("Preparing " + item1 + "...");
+                super.dispenseItem(i+1);
             }
 
             if(slotList.get(i).getSpecificItem().getName().compareTo(item2) == 0) {
                 itemCombo.add(slotList.get(i).getSpecificItem());
+                super.dispenseItem(i+1);
             }
 
             if(slotList.get(i).getSpecificItem().getName().compareTo(item3) == 0) {
                 itemCombo.add(slotList.get(i).getSpecificItem());
+                super.dispenseItem(i+1);
             }
 
             if(slotList.get(i).getSpecificItem().getName().compareTo(item4) == 0) {
                 itemCombo.add(slotList.get(i).getSpecificItem());
+                super.dispenseItem(i+1);
             }
 
             if(slotList.get(i).getSpecificItem().getName().compareTo(item5) == 0) {
                 itemCombo.add(slotList.get(i).getSpecificItem());
+                super.dispenseItem(i+1);
             }
         }
 
         return itemCombo;
-        
     }
 
+    // remove all elements from itemCombo list 
+    public void clearItemCombo() {
+        this.itemCombo.clear();
+    }
+
+    /*
+    public void setSlotList(ArrayList<Slot> slotList) {
+        this.slotList = slotList;
+    }
+    */
 }
