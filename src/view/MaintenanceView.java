@@ -1,4 +1,7 @@
+package src.view;
 import javax.swing.*;
+
+import src.controller.MaintenanceController;
 
 import java.awt.*;
 
@@ -25,7 +28,7 @@ public class MaintenanceView {
      */
     public MaintenanceView() {
         // Set up the main frame
-        this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
+        this.icon = new ImageIcon(getClass().getResource("VM ICON.png"));
         frame = new JFrame("Perform Vending Machine Maintenance");
         frame.setSize(480, 680); // Set the size of the frame
         frame.setIconImage(icon.getImage());
@@ -38,7 +41,7 @@ public class MaintenanceView {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 // Load and draw the background image
-                ImageIcon bgImageIcon = new ImageIcon(getClass().getResource("/Images/MAINTENANCE BG.png"));
+                ImageIcon bgImageIcon = new ImageIcon(getClass().getResource("MAINTENANCE BG.png"));
                 Image bgImage = bgImageIcon.getImage();
                 g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
             }

@@ -1,3 +1,4 @@
+package src.view;
 import javax.swing.*;
 
 import java.awt.*;
@@ -18,11 +19,11 @@ public class MainMenuView {
     * Constructs a constructor for MainMenuView
     */
     public MainMenuView(){
-        this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
+        this.icon = new ImageIcon(getClass().getResource("VM ICON.png"));
         this.frame = new JFrame("Greens & Grains");
 
         // Create a background image label 
-        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Images/VM BGM.png"));
+        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("VM BGM.png"));
         this.mainBG = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {

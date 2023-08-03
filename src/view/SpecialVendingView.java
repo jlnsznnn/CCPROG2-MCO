@@ -1,3 +1,4 @@
+package src.view;
 import javax.swing.*;
 
 import java.awt.*;
@@ -22,7 +23,7 @@ public class SpecialVendingView extends RegularVendingView {
     @Override
     public JPanel displayBackground() {
         // get the chosen background image from Images folder
-        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("Images/SPECIAL VM BG.png"));
+        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("SPECIAL VM BG.png"));
         JPanel regVMBG = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {

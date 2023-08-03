@@ -1,8 +1,16 @@
+package src.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.*;
 import javax.swing.*;
+
+import src.model.VendingMachine;
+import src.model.Denominations;
+import src.model.Item;
+import src.model.Slot;
+import src.view.MaintenanceView;
+import src.view.RegularVendingView;
 /**
  * 	This RegularVendingController class is linked to the model and view of the regular vending machine
  */

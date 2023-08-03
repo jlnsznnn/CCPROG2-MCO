@@ -1,8 +1,16 @@
+package src.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
+
+import src.model.Slot;
+import src.model.VendingMachine;
+import src.model.SpecialVendingMachine;
+import src.view.MainMenuView;
+import src.view.RegularVendingView;
+import src.view.SpecialVendingView;
 /**
  * 	This MainMenuController class is linked to the model and view of the main menu
  */

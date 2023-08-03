@@ -1,4 +1,7 @@
+package src.view;
 import javax.swing.*;
+
+import src.model.Slot;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -39,7 +42,7 @@ public class RegularVendingView {
      * Constructs a regular vending view object
      */
     public RegularVendingView(){
-        this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png")); 
+        this.icon = new ImageIcon(getClass().getResource("VM ICON.png")); 
         this.frame = new JFrame("Customize Your Vending Machine"); 
 
         this.frame.setSize(480, 680); 
@@ -86,7 +89,7 @@ public class RegularVendingView {
      */
     public JPanel displayBackground() {
 
-        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Images/ASK USER RVM.png"));
+        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("ASK USER RVM.png"));
         JPanel regVMBG = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -216,7 +219,7 @@ public class RegularVendingView {
         frame.setIconImage(icon.getImage());
     
         // Create the background panel with the image
-        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("/Images/TEMPLATE.png"));
+        final ImageIcon backgroundImage = new ImageIcon(getClass().getResource("TEMPLATE.png"));
         JPanel regVMBG = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -396,7 +399,7 @@ public class RegularVendingView {
             try {
                 ClassLoader classLoader = RegularVendingView.class.getClassLoader();
                 // Replace "images/" with the directory where your images are located relative to the classpath
-                String imagePath = "images/" + filename;
+                String imagePath = filename;
                 return ImageIO.read(classLoader.getResource(imagePath));
             } catch (IOException | NullPointerException ex) {
                 System.err.println("Error loading image: " + filename);

@@ -1,4 +1,9 @@
+package src.controller;
 import javax.swing.*;
+
+import src.model.Item;
+import src.model.SpecialVendingMachine;
+import src.view.SpecialVendingView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
