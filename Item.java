@@ -14,7 +14,7 @@ public class Item {
      * @param name                  Name of the item
      * @param calories              Total number of calories
      * @param price                 Price of the item
-     * //@param quantity              Total quantity of the item
+     * @param quantity              Total quantity of the item
      */
     public Item(String name, double calories, double price, int quantity) {
         this.name = name;
@@ -62,16 +62,16 @@ public class Item {
     /**
      * Sets a new price for an item
      * 
-     * @param         New price of the item
+     * @param          price of the item
      */
     public void setPrice(double price){
         this.price = price;
     }
 
     /**
-     * Sets a new price for an item
+     * Setsif the item is sellable or not
      * 
-     * @param         New price of the item
+     * @param           status of the item
      */
     public void setIsSellable(boolean status) {
         this.isSellable = status;

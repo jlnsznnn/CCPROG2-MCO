@@ -9,15 +9,21 @@ import javax.swing.*;
 public class MainMenuController {
     /**
      * Constructs a MainMenuController object
+     * 
+     * @param mainMenuView      instance of the MainMenuView class
      */
     public MainMenuController(MainMenuView mainMenuView){
         mainMenuView.setMenuButtonListener(new ActionListener() {
+             /**
+             * Adds an action for every action performed by the user
+             * 
+             * @param e      instance of an Action Event
+             */
             @Override
             public void actionPerformed(ActionEvent e){
                 int choice;
                 if(e.getSource() == mainMenuView.getMenuButton1()){
                     JOptionPane.showMessageDialog(mainMenuView.getFrame(), "Regular Vending Machine is created successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
-                    // INSERT CODE
                     RegularVendingView regularVendingView = new RegularVendingView();
                     VendingMachine regularVendingModel = new VendingMachine();
                     RegularVendingController regularVendingController = new RegularVendingController(regularVendingModel, regularVendingView);
@@ -27,10 +33,7 @@ public class MainMenuController {
                     mainMenuView.getFrame().setVisible(false);
                 } else if (e.getSource() == mainMenuView.getMenuButton2()) {
                     JOptionPane.showMessageDialog(mainMenuView.getFrame(), "Special Vending Machine is created successfully!", "Information", JOptionPane.INFORMATION_MESSAGE);
-                    // INSERT CODE
-                    // Create a SpecialVendingView instance
                     SpecialVendingView specialVendingView = new SpecialVendingView();   
-                    // Create a SpecialVendingController instance and pass the RegularVendingView to it
                     SpecialVendingController specialVendingController = new SpecialVendingController(new SpecialVendingMachine(), specialVendingView);
                     ArrayList<Slot> savedItems = specialVendingController.getSlotList();
                     specialVendingView.setItems(savedItems);

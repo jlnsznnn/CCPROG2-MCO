@@ -3,6 +3,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+* This MainMenuView represents the 'View' of the MVC architecture that we used for our Main Menu
+*/
 public class MainMenuView {
     private ImageIcon icon;
     private JFrame frame;
@@ -12,7 +15,7 @@ public class MainMenuView {
     private GridBagConstraints gbc;
 
     /**
-    * This MainMenuView represents the 'View' of the MVC architecture that we used for our Main Menu
+    * Constructs a constructor for MainMenuView
     */
     public MainMenuView(){
         this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
@@ -81,7 +84,9 @@ public class MainMenuView {
     }
 
     /**
-    * Setter for the Menu Button Listener    
+    * Setter for the Menu Button Listener  
+    *
+    * @param menuButtonListener        action listener that tracks and add an action for each menu button  
     */
     public void setMenuButtonListener(ActionListener menuButtonListener) {
         menuBtn1.addActionListener(menuButtonListener);

@@ -294,7 +294,12 @@ public class SpecialVendingMachine extends VendingMachine {
     /**
      * Dispenses the list of items in a combo
      * 
-     * @return        List of items in the combo
+     * @param item1         the first item in a combo
+     * @param item2         the second item in a combo
+     * @param item3         the third item in a combo
+     * @param item4         the fourth item in a combo
+     * @param item5         the fifth item in a combo
+     * @return              List of items in the combo
      */
     public ArrayList<Item> dispenseItems(String item1, String item2, String item3, String item4, String item5) {
         clearItemCombo(); // current itemCombo list is cleared each time a user chooses to dispense a combo
@@ -335,6 +340,8 @@ public class SpecialVendingMachine extends VendingMachine {
 
     /**
      * Displays the preparation of the customized item
+     * 
+     * @param comboList           ArrayList of the chosen items for customization
      */
     public void displayDispensedItems(ArrayList<Item> comboList) {
         System.out.println("Preparing " + comboList.get(0).getName() + "...");

@@ -589,6 +589,8 @@ public class RegularVendingView {
 
     /**
      * Sets the last clicked slot of the user
+     * 
+     * @param          slot button
      */
     public void setLastClickedSlot(JButton slot) {
         this.lastClickedSlot = slot;
@@ -596,6 +598,8 @@ public class RegularVendingView {
 
     /**
      * Sets the index for the user's last clicked slot
+     * 
+     * @param          index that is last clicked
      */
     public void setLastClickedSlotIndex(int index) {
         this.lastClickedSlotIndex = index;
@@ -603,6 +607,8 @@ public class RegularVendingView {
 
     /**
      *  Sets the items inside the item lists
+     * 
+     * @param           items inside the slots
      */
     public void setItems(ArrayList<Slot> items) {
         this.itemList = items;

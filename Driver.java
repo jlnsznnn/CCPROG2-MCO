@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-
-public class Main {
+// DRIVER CLASS 
+public class Driver {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override

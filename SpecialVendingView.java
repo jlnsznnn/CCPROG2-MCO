@@ -6,6 +6,9 @@ import java.awt.*;
  * 	This SpecialVendingView inherits the RegularVendingView class
  */
 public class SpecialVendingView extends RegularVendingView {
+    /**
+    * 	Constructs a SpecialVendingView
+    */
     public SpecialVendingView() {
         // Call the constructor of the superclass (RegularVendingView)
         super();

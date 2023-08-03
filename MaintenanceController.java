@@ -11,6 +11,8 @@ public class MaintenanceController implements ActionListener {
 
     /**
      * 	Constructs a MaintenanceController object
+     * 
+     * @param maintenanceView       instance of the MaintenanceView class
      */
     public MaintenanceController(MaintenanceView maintenanceView) {
         this.maintenanceView = maintenanceView;

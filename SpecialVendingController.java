@@ -12,6 +12,9 @@ public class SpecialVendingController extends RegularVendingController {
 
     /**
      * Constructs a SpecialVendingController object
+     * 
+     * @param specialVendingModel      instance of the SpecialVendingMachine or model of our MVC
+     * @param specialVendingView       instance of the SpecialVendingView or the view of our MVC
      */
     public SpecialVendingController(SpecialVendingMachine specialVendingModel, SpecialVendingView specialVendingView) {
         super(specialVendingModel, specialVendingView);

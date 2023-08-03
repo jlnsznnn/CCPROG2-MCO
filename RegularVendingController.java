@@ -18,6 +18,9 @@ public class RegularVendingController {
 
     /**
      * Constructs a RegularVendingController object
+     * 
+     * @param regularVendingModel      instance of the regular vending machine or the model class
+     * @param regularVendingView       instance of the RegularVendingView or the view class
      */
     public RegularVendingController(VendingMachine regularVendingModel, RegularVendingView regularVendingView) {
         this.regularVendingModel = regularVendingModel;
@@ -80,7 +83,6 @@ public class RegularVendingController {
                             regularVendingModel.addSlot(new Slot((index+1), new Item(name, caloriesValue, priceValue, quantityValue)));
                             index++; // increment index for next slot
 
-                            // for debugging
                             System.out.println("Slot number # " + index);
                             System.out.println("Item name: " + name);
                             System.out.println("Calories: " + calories);
@@ -322,6 +324,8 @@ public class RegularVendingController {
 
     /**
      * Counts the digits in the total amount of change
+     * 
+     * @param           change of the user
      */
     private int countDigits(int change) {
         int temp;
@@ -342,8 +346,8 @@ public class RegularVendingController {
     /**
      * Produces change based on the amount of payment the user gave.
      * 
-     * @param           Price of the item
-     * @param           Inputted payment from the user
+     * @param           price of the item
+     * @param           payment payment from the user
      */
     public void produceChange(double price, double payment) {
         int i;

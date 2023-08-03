@@ -44,7 +44,6 @@ public class Slot {
     /**
      * Removes a specific item from the slot
      * 
-     * @param item      Specific item to be removed
      * @return          True if the item is successfully removed, otherwise false. 
      */
     public boolean removeItem() {
