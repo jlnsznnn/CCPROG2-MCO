@@ -8,7 +8,6 @@ public class Inventory {
 
     /**
      * Constructs an Inventory class
-     * 
      */
     public Inventory() {
         this.startingInventory = new ArrayList<>();
@@ -17,10 +16,7 @@ public class Inventory {
     /**
      * Updates the starting inventory by
      * 
-     * @param name        Name of the item
-     * @param calories    Calories the item has
-     * @param price       Price of the item
-     * @param quantity    Quantity of the item
+     * @param slot          designated slot of the item
      */
     public void updateStartingInventory(Slot slot) {
         this.startingInventory.add(slot);

@@ -11,16 +11,46 @@ import java.util.ArrayList;
  * 	This RegularVendingView represents the 'View' of the MVC architecture that we used for our Regular Vending Machine
  */
 public class RegularVendingView {
-
-    // Custom RVM attributes
-    protected ImageIcon icon;
-    protected JFrame frame;
-    protected JComboBox<String> nameOptions; // TODO
-    protected JTextField textField; // TODO
-    protected JComboBox<String> quantityOptions; // TODO
-    protected JTextArea caloriesInput, priceInput; // TODO
-    protected JButton chooseButton, saveButton; // TODO
-    protected GridBagConstraints gbc; //TODO modify in UML
+    /**
+     * Image used for the icon of the program
+     */
+    protected ImageIcon icon; 
+    /**
+     * Main frame of the program
+     */
+    protected JFrame frame; 
+    /**
+     * Combo box of item names the user could choose from
+     */
+    protected JComboBox<String> nameOptions; 
+    /**
+     * Text field where a user could put an input
+     */
+    protected JTextField textField; 
+    /**
+     * Combo box of the quanity an item could have that the user could choose from
+     */
+    protected JComboBox<String> quantityOptions; 
+    /**
+     * Text area for the user to input the item's calories
+     */
+    protected JTextArea caloriesInput;
+    /**
+     * Text are for the user the input the item's price
+     */
+    protected JTextArea priceInput;  
+    /**
+     * Button for the user to confirm their choices
+     */
+    protected JButton chooseButton; 
+    /**
+     * Button for the user to save their choices
+     */
+    protected JButton saveButton;  
+    /**
+     * GridBagConstraits for proper layout
+     */
+    protected GridBagConstraints gbc;  
 
     // Regular Vending Machine attributes
     private ArrayList<JButton> buttonList;
@@ -33,6 +63,9 @@ public class RegularVendingView {
     private String[] buttonLabels; 
     private int buttonIndex;
     private int lastClickedSlotIndex;
+    /**
+     * Slot list consisting of items
+     */
     protected ArrayList<Slot> itemList;
 
     /**
@@ -83,6 +116,8 @@ public class RegularVendingView {
 
     /**
      * Displays the assigned image as the background of the panel
+     * 
+     * @return          The background image
      */
     public JPanel displayBackground() {
 
@@ -314,16 +349,6 @@ public class RegularVendingView {
         // Creates  the 'Dispense' button
         dispenseButton.setFont(new Font("Arial", Font.PLAIN, 12));
         dispenseButton.setPreferredSize(new Dimension(100, 30));
-        /*
-        dispenseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Dispense button clicked!");
-                String selectedItem = chosenItemTextArea.getText();
-                System.out.println("Dispensing: " + selectedItem);
-            }
-        });
-        */
 
         // Add components to the panel with GridBagLayout
         gbc.gridx = 0;
@@ -350,25 +375,13 @@ public class RegularVendingView {
         // Create and add maintenance button 
         maintenanceButton.setFont(new Font("Arial", Font.PLAIN, 12));
         maintenanceButton.setPreferredSize(new Dimension(largeButtonWidth, largeButtonHeight));
-        maintenanceButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Handle maintenance button click event here
-                System.out.println("Maintenance button clicked!");
-            }
-        });
+
         buttonsPanel.add(maintenanceButton, BorderLayout.SOUTH);
 
-        // Create and add customize button (larger size)
+        // Create and add customize button 
         customizeButton.setFont(new Font("Arial", Font.PLAIN, 12));
         customizeButton.setPreferredSize(new Dimension(largeButtonWidth, largeButtonHeight));
-        customizeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Handle customize button click event here
-                System.out.println("Customize button clicked!");
-            }
-        });
+
         buttonsPanel.add(customizeButton, BorderLayout.NORTH);
 
         mainPanel.add(buttonsPanel, BorderLayout.CENTER);
@@ -593,6 +606,8 @@ public class RegularVendingView {
 
     /**
      * Sets the last clicked slot of the user
+     * 
+     * @param slot        button of the last clicked slot 
      */
     public void setLastClickedSlot(JButton slot) {
         this.lastClickedSlot = slot;
@@ -600,6 +615,8 @@ public class RegularVendingView {
 
     /**
      * Sets the index for the user's last clicked slot
+     * 
+     * @param index      index of the last clicked index
      */
     public void setLastClickedSlotIndex(int index) {
         this.lastClickedSlotIndex = index;
@@ -607,6 +624,8 @@ public class RegularVendingView {
 
     /**
      *  Sets the items inside the item lists
+     * 
+     * @param items      items inside the slot list
      */
     public void setItems(ArrayList<Slot> items) {
         this.itemList = items;

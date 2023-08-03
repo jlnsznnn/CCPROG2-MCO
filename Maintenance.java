@@ -11,7 +11,7 @@ public class Maintenance {
     /**
      * Constructs a Maintence object for the chosen specific item
      * 
-     * @param item      Item to be inputted and managed
+     * @param slot      Slot to be inputted and managed
      */
     public Maintenance(Slot slot){
         this.slot = slot;

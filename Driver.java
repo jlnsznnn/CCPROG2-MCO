@@ -1,8 +1,13 @@
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-// DRIVER CLASS 
+/**
+ * 	Driver class for the vending machine
+ */
 public class Driver {
+    /**
+     * 	Main method for the vending machine
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override

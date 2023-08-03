@@ -12,6 +12,10 @@ public class MaintenanceController implements ActionListener {
 
     /**
      * 	Constructs a MaintenanceController object
+     * 
+     * @param maintenanceView           Shows the view of the maintenance feature
+     * @param vendingMachineModel       Responsible for the tasks performed by the maintenance feature
+     * @param mainMenuView              Shows the view of the main menu feature
      */
     public MaintenanceController(MaintenanceView maintenanceView, VendingMachine vendingMachineModel, MainMenuView mainMenuView) {
         this.maintenanceView = maintenanceView;
@@ -26,7 +30,7 @@ public class MaintenanceController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String buttonName = e.getActionCommand();
 
-        // Check which button was clicked and show the corresponding frame
+        // Shows the frame depending on which button is clicked
         if (buttonName.equals("Restock Item")) {
             maintenanceView.getRestockFrame();
             String selectedItem = maintenanceView.getSlotComboBox().getSelectedItem().toString();
@@ -41,7 +45,6 @@ public class MaintenanceController implements ActionListener {
                 JOptionPane.showMessageDialog(maintenanceView.getFrame(), quantity + " stocks of " + selectedItem +" are added succesfully.", "Restock Item",
                 JOptionPane.INFORMATION_MESSAGE); 
             } 
-
         } else if (buttonName.equals("Set Price")) {
             maintenanceView.getSetPriceFrame();
         } else if (buttonName.equals("Collect Money")) {
@@ -55,11 +58,17 @@ public class MaintenanceController implements ActionListener {
         } else if (buttonName.equals("Transactions")) {
             maintenanceView.getTransactionsFrame();
         } else if (buttonName.equals("Exit")) {
-            maintenanceView.getFrame().setVisible(false); // Hide the maintenance frame
-            mainMenuView.getFrame().setVisible(true);
+            maintenanceView.getFrame().setVisible(false); // Hides the maintenance frame
+            mainMenuView.getFrame().setVisible(true);     // Redirects user to the main menu
         }
     }
 
+    /**
+     * Searches for the slot where a specific item is stored
+     * 
+     * @param nameToFind        name to be found
+     * @return                  slot of item searched
+     */
     public Slot searchItem(String nameToFind) {
         int i;
         boolean isFound = false;

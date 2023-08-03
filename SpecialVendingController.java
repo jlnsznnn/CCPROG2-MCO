@@ -13,6 +13,10 @@ public class SpecialVendingController extends RegularVendingController {
 
     /**
      * Constructs a SpecialVendingController object
+     * 
+     * @param specialVendingModel           Responsible for the tasks performed by the special vending machine
+     * @param specialVendingView            Shows the view of the special vending machine
+     * @param mainMenuView                  Shows the view of the main menu feature of the vending machine
      */
     public SpecialVendingController(SpecialVendingMachine specialVendingModel, SpecialVendingView specialVendingView, MainMenuView mainMenuView) {
         super(specialVendingModel, specialVendingView, mainMenuView);
@@ -48,7 +52,9 @@ public class SpecialVendingController extends RegularVendingController {
         });
     }
 
-    // TODO
+    /**
+     * Checks if an ietm is sellable or not
+     */
     public void sellableChecker(){
         JCheckBox isSellable = specialVendingView.getSellableCheckBox();
         isSellable.addActionListener(new ActionListener() {

@@ -6,9 +6,21 @@ import java.util.Scanner;
  *  collecting payment, producing change, and performing maintenance
  */
 public class VendingMachine {
+    /**
+     * Scanner for getting input
+     */
     protected Scanner sc;
+    /**
+     * Slot list inside the vending machine
+     */
     protected ArrayList<Slot> slotList;
+    /**
+     * Different payment denominations
+     */
     protected Denominations payment;
+    /**
+     * Starting inventory of the vending machine
+     */
     protected Inventory startingInventory;
 
     /**
@@ -25,25 +37,8 @@ public class VendingMachine {
      * Displays the starting menu of the vending machine
      */
     public void displayMenu() {
-        int slots;
+        int slots =12;
         int i;
-
-        System.out.print("\nEnter the number of slots for the items: ");
-        slots = sc.nextInt();
-
-        if (slots > 12) {
-            System.out.println();
-            System.out.println("Error: The machine should have at most 12 slots. Try Again.");
-            displayMenu();
-            return;
-        }
-
-        if (slots < 8) { 
-            System.out.println();
-            System.out.println("Error: The machine should have at least 8 slots. Try Again.");
-            displayMenu();
-            return;
-        }
 
         for (i = 0; i < slots; i++) {
             String name;
@@ -451,7 +446,12 @@ public class VendingMachine {
             testVendingMachine();
         }
     }
-
+    
+    /**
+     * Displays the different payment options of the machine
+     * 
+     * @param price             Price of the item
+     */
     public void displayPaymentOptions(double price) {
         System.out.println();
         System.out.println("---------------------------------------------\n");

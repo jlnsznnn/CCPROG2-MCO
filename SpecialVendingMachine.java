@@ -294,6 +294,11 @@ public class SpecialVendingMachine extends VendingMachine {
     /**
      * Dispenses the list of items in a combo
      * 
+     * @param item1   First ingredient in the combo
+     * @param item2   Second ingredient in the combo
+     * @param item3   Third ingredient in the combo
+     * @param item4   Fourth ingredient in the combo
+     * @param item5   Fifth ingredient in the combo
      * @return        List of items in the combo
      */
     public ArrayList<Item> dispenseItems(String item1, String item2, String item3, String item4, String item5) {
@@ -335,6 +340,8 @@ public class SpecialVendingMachine extends VendingMachine {
 
     /**
      * Displays the preparation of the customized item
+     * 
+     * @param comboList     combo products that consists a ist of items
      */
     public void displayDispensedItems(ArrayList<Item> comboList) {
         System.out.println("Preparing " + comboList.get(0).getName() + "...");

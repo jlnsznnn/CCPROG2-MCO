@@ -3,17 +3,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * 	This MainMenuView class displays the main menu and is linked to the MainMenuController and MainMenu model
+ */
 public class MainMenuView {
     private ImageIcon icon;
     private JFrame frame;
     private JPanel mainBG;
-    private JButton menuBtn1, menuBtn2, menuBtn3;
+    private JButton menuBtn1;
+    private JButton menuBtn2;
+    private JButton menuBtn3;
     private JLabel titleSpace;
     private GridBagConstraints gbc;
 
     /**
-    * This MainMenuView represents the 'View' of the MVC architecture that we used for our Main Menu
-    */
+     * This MainMenuView represents the 'View' of the MVC architecture that we used for our Main Menu
+     */
     public MainMenuView(){
         this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
         this.frame = new JFrame("Greens & Grains Vending Machine");
@@ -28,7 +33,8 @@ public class MainMenuView {
             }
         };
 
-        this.frame.setSize(480, 680); // Set the size of the frame
+        // Set the size of the frame
+        this.frame.setSize(480, 680); 
         this.frame.setIconImage(icon.getImage());
 
         // Filler for space only
@@ -37,6 +43,7 @@ public class MainMenuView {
 
         this.gbc = new GridBagConstraints();
 
+        // Create buttons
         this.menuBtn1 = new JButton("Regular Vending Machine");
         this.menuBtn2 = new JButton("Special Vending Machine");
         this.menuBtn3 = new JButton("Exit");
@@ -47,8 +54,8 @@ public class MainMenuView {
     }
 
     /**
-    * Initializes some of the GUI components we declared
-    */
+     * Initializes some of the GUI components we declared
+     */
     private void initializeGUI() {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(15, 5, 5, 5);
@@ -81,8 +88,10 @@ public class MainMenuView {
     }
 
     /**
-    * Setter for the Menu Button Listener    
-    */
+     * Setter for the Menu Button Listener    
+     * 
+     * @param menuButtonListener      sets the menuButtonListener for menuBtn1, menuBtn2, menuBtn3
+     */
     public void setMenuButtonListener(ActionListener menuButtonListener) {
         menuBtn1.addActionListener(menuButtonListener);
         menuBtn2.addActionListener(menuButtonListener);

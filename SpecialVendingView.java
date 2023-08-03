@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 import java.awt.*;
 
 /**
@@ -8,6 +7,9 @@ import java.awt.*;
 public class SpecialVendingView extends RegularVendingView {
     private JCheckBox isSellable;
 
+    /**
+    * 	Constriucts a special vending view
+    */
     public SpecialVendingView() {
         // Call the constructor of the superclass (RegularVendingView)
         super();
@@ -118,14 +120,16 @@ public class SpecialVendingView extends RegularVendingView {
         gbc.fill = GridBagConstraints.BOTH;
         panel.add(priceScrollPane, gbc);
 
+        // Sellable check box
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 3;
         isSellable = new JCheckBox("Can be sold alone?");
+        isSellable.setForeground(Color.WHITE);
         isSellable.setOpaque(false);
         panel.add(isSellable, gbc);
 
-        // SaveButton
+        // Save Button
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.gridwidth = 4;
@@ -143,8 +147,11 @@ public class SpecialVendingView extends RegularVendingView {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
     }
-
-    //TODO
+    /**
+     * Gets the checkbox that asks if the item is sellable or not
+     * 
+     * @return             Name of the item
+     */
     public JCheckBox getSellableCheckBox(){
         return this.isSellable;
     }

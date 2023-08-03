@@ -7,20 +7,22 @@ public class Item {
     private double calories;
     private double price;
     private boolean isSellable;
-
+    private int quantity;
+    
     /**
      * Constructs an item class that takes in a name, calories, price, and quantity
      * 
      * @param name                  Name of the item
      * @param calories              Total number of calories
      * @param price                 Price of the item
-     * //@param quantity              Total quantity of the item //TODO
+     * @param quantity              Total quantity of the item 
      */
     public Item(String name, double calories, double price, int quantity) {
         this.name = name;
         this.calories = calories;
         this.price = price;
-        this.isSellable = false;
+        this.quantity = quantity;
+        this.isSellable = false;    // the item is not sellable on its own by default
     }
 
     /**
@@ -60,9 +62,18 @@ public class Item {
     }
 
     /**
+     * Gets the quantity attribute of the item
+     * 
+     * @return          Initial quantity of a specific item upon creation
+     */
+    public int getQuantity() {
+        return this.quantity;
+    }
+
+    /**
      * Sets a new price for an item
      * 
-     * @param         New price of the item
+     * @param price         New price of the item
      */
     public void setPrice(double price){
         this.price = price;
@@ -71,7 +82,7 @@ public class Item {
     /**
      * Sets a new price for an item
      * 
-     * @param         New price of the item
+     * @param status        New price of the item
      */
     public void setIsSellable(boolean status) {
         this.isSellable = status;

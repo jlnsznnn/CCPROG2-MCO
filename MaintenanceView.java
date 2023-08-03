@@ -3,7 +3,6 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 
-
 /**
  * 	This MaintenanceView displays the maintenance menu of the vending machine
  */
@@ -12,10 +11,8 @@ public class MaintenanceView {
     private JFrame frame;
     private JPanel mainPanel;
     private JPanel buttonPanel;
-
     private JComboBox<String> slotComboBox;
     private JSpinner quantitySpinner;
-
     private JFrame restockFrame;
     private JFrame setPriceFrame;
     private JFrame collectMoneyFrame;
@@ -23,16 +20,19 @@ public class MaintenanceView {
     private JFrame startingInventoryFrame;
     private JFrame endingInventoryFrame;
     private JFrame transactionsFrame;
-
     private VendingMachine vendingMachineModel;
     private MainMenuView mainMenuView;
 
     /**
-     * 	Constructs a MaintenanceView object
+     * Constructs a MaintenanceView object
+     *  
+     * @param vendingMachineModel          Responsible for the tasks and features performed by the vending machine
+     * @param mainMenuView                 Shows the main menu view features
      */
     public MaintenanceView(VendingMachine vendingMachineModel, MainMenuView mainMenuView) {
         this.vendingMachineModel = vendingMachineModel;
         this.mainMenuView = mainMenuView;
+
         // Set up the main frame
         this.icon = new ImageIcon(getClass().getResource("/Images/VM ICON.png"));
         frame = new JFrame("Perform Vending Machine Maintenance");
@@ -87,20 +87,9 @@ public class MaintenanceView {
         frame.add(mainPanel);
         frame.setVisible(false);
     }
-    
-    /**
-     * 	Gets the current frame
-     * 
-     *  @return             current frame
-     */
-    public JFrame getFrame(){
-        return this.frame;
-    }
 
     /**
      * 	Gets the restockFrame
-     * 
-     *  @return             restockFrame
      */
     public void getRestockFrame() {
         restockFrame.getContentPane().removeAll();
@@ -143,53 +132,16 @@ public class MaintenanceView {
     }
 
     /**
-     * 	Gets the setPriceFrame
+     * 	Gets the current frame
      * 
-     *  @return             setPriceFrame
+     *  @return             current frame
      */
-    public void getSetPriceFrame() {
-        setPriceFrame.getContentPane().removeAll();
-        setPriceFrame.setSize(300, 300);
-        setPriceFrame.setLayout(new GridBagLayout());
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.anchor = GridBagConstraints.CENTER;
-
-        JLabel slotLabel = new JLabel("Choose a slot:");
-        setPriceFrame.add(slotLabel, gbc);
-
-        gbc.gridy++;
-        String[] slotOptions  = {"Lettuce", "Tomato", "Cucumber", "Onion", "Roasted Chicken", 
-        "Boiled Egg", "Spinach", "Grapes", "Croutons", "Fresh Herbs", 
-        "Dressing", "Crushed Peanuts"};
-        JComboBox<String> slotComboBox = new JComboBox<>(slotOptions);
-        setPriceFrame.add(slotComboBox, gbc);
-
-        gbc.gridy++;
-        JLabel quantityLabel = new JLabel("Input New Price:");
-        setPriceFrame.add(quantityLabel, gbc);
-
-        gbc.gridy++;
-        JTextField priceTextField = new JTextField(10); // Create a text field to input the new price
-        setPriceFrame.add(priceTextField, gbc);
-
-        gbc.gridy++;
-        JButton setPriceButton = new JButton("Set New Price");
-        setPriceFrame.add(setPriceButton, gbc);
-
-        // Make the frame visible after adding components
-        setPriceFrame.setLocationRelativeTo(null);
-        setPriceFrame.setResizable(false);
-        setPriceFrame.setVisible(true);  
+    public JFrame getFrame(){
+        return this.frame;
     }
 
     /**
      * Gets the collectMoneyFrame
-     * 
-     * @return collectMoneyFrame
      */
     public void getCollectMoneyFrame() {
         collectMoneyFrame.getContentPane().removeAll();
@@ -257,11 +209,8 @@ public class MaintenanceView {
         collectMoneyFrame.setVisible(true);
     }
 
-
     /**
      * 	Gets the replenishMoneyFrame
-     * 
-     *  @return             replenishMoneyFrame
      */
     public void getReplenishMoneyFrame() {
         replenishMoneyFrame.getContentPane().removeAll();
@@ -331,8 +280,6 @@ public class MaintenanceView {
 
     /**
      * 	Gets the startingInventoryFrame
-     * 
-     *  @return             startingInventoryFrame
      */
     public void getStartingInventoryFrame() {
         startingInventoryFrame.getContentPane().removeAll();
@@ -370,8 +317,6 @@ public class MaintenanceView {
     
     /**
      * 	Gets the endingInventoryFrame
-     * 
-     *  @return             endingInventoryFrame
      */
     public void getEndingInventoryFrame() {
         endingInventoryFrame.getContentPane().removeAll();
@@ -410,8 +355,6 @@ public class MaintenanceView {
 
     /**
      * 	Gets the transactionsFrame
-     * 
-     *  @return             transactionsFrame
      */
     public void getTransactionsFrame() {
         transactionsFrame.getContentPane().removeAll();
@@ -448,12 +391,65 @@ public class MaintenanceView {
         transactionsFrame.setVisible(true);
     }
 
+    /**
+     * 	Gets the slotComboBox
+     * 
+     *  @return         slotComboBox
+     */
     public JComboBox<String> getSlotComboBox() {
         return this.slotComboBox;
     }
 
+    /**
+     * 	Gets the quantitySpinner
+     * 
+     *  @return         quantitySpinner
+     */
     public JSpinner getQuantitySpinner() {
         return this.quantitySpinner;
+    }
+
+    /**
+     * 	Gets the setPriceFrame
+     * 
+     */
+    public void getSetPriceFrame() {
+        setPriceFrame.getContentPane().removeAll();
+        setPriceFrame.setSize(300, 300);
+        setPriceFrame.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        JLabel slotLabel = new JLabel("Choose a slot:");
+        setPriceFrame.add(slotLabel, gbc);
+
+        gbc.gridy++;
+        String[] slotOptions  = {"Lettuce", "Tomato", "Cucumber", "Onion", "Roasted Chicken", 
+        "Boiled Egg", "Spinach", "Grapes", "Croutons", "Fresh Herbs", 
+        "Dressing", "Crushed Peanuts"};
+        JComboBox<String> slotComboBox = new JComboBox<>(slotOptions);
+        setPriceFrame.add(slotComboBox, gbc);
+
+        gbc.gridy++;
+        JLabel quantityLabel = new JLabel("Input New Price:");
+        setPriceFrame.add(quantityLabel, gbc);
+
+        gbc.gridy++;
+        JTextField priceTextField = new JTextField(10); // Create a text field to input the new price
+        setPriceFrame.add(priceTextField, gbc);
+
+        gbc.gridy++;
+        JButton setPriceButton = new JButton("Set New Price");
+        setPriceFrame.add(setPriceButton, gbc);
+
+        // Make the frame visible after adding components
+        setPriceFrame.setLocationRelativeTo(null);
+        setPriceFrame.setResizable(false);
+        setPriceFrame.setVisible(true);  
     }
 
 }

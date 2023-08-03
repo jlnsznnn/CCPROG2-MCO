@@ -3,18 +3,27 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.*;
 import javax.swing.*;
+
 /**
  * 	This RegularVendingController class is linked to the model and view of the regular vending machine
  */
 public class RegularVendingController {
-    // Attributes
-    private ArrayList<String> savedItems = new ArrayList<>();
-    private int savedItemCount = 0; // Initialize to 0
-    private boolean isChooseButtonClicked; 
-    protected VendingMachine regularVendingModel; 
-    protected RegularVendingView regularVendingView;
-    protected Denominations denominations; 
+    private ArrayList<String> savedItems;
     private int index;
+    private int savedItemCount = 0; 
+    private boolean isChooseButtonClicked; 
+    /**
+     * 	Model of a regular vending machine
+     */
+    protected VendingMachine regularVendingModel; 
+    /**
+     * 	View of a regular vending machine
+     */
+    protected RegularVendingView regularVendingView;
+    /**
+     * 	Denominations of a regular vending machine
+     */
+    protected Denominations denominations; 
     private boolean hasPaid;
     private MaintenanceController maintenanceController;
     private MaintenanceView maintenanceView;
@@ -22,6 +31,10 @@ public class RegularVendingController {
 
     /**
      * Constructs a RegularVendingController object
+     * 
+     * @param regularVendingModel         the model of the regular vending machine
+     * @param regularVendingView          the view of the regular vending machine
+     * @param mainMenuView                the view of the main menu 
      */
     public RegularVendingController(VendingMachine regularVendingModel, RegularVendingView regularVendingView, MainMenuView mainMenuView) {
         this.regularVendingModel = regularVendingModel;
@@ -34,6 +47,9 @@ public class RegularVendingController {
 
         this.isChooseButtonClicked = false;
         this.hasPaid = false;
+
+        this.savedItems = new ArrayList<>();
+
 
         this.maintenanceView.getFrame().setVisible(false);
 
@@ -89,19 +105,10 @@ public class RegularVendingController {
                             // Add the selected item to the list of saved items
                             savedItems.add(name);
 
-                            // add 
+                            // Add a slot
                             regularVendingModel.addSlot(new Slot((index+1), new Item(name, caloriesValue, priceValue, quantityValue)));
                             regularVendingModel.getSlotList().get(index).addItem(quantityValue);
                             index++; // increment index for next slot
-
-                            // for debugging
-                            System.out.println("Slot number # " + index);
-                            System.out.println("Item name: " + name);
-                            System.out.println("Calories: " + caloriesValue);
-                            System.out.println("Price: " + priceValue);
-                            System.out.println("Quantity: " + quantityValue);
-                            System.out.println("Size of item list of index 0: " + getSlotList().get(0).getItemList().size());
-                            System.out.println("Size of slot list: " + getSlotList().size());
 
                             // Reset the flag for "Choose" button click
                             isChooseButtonClicked = false;
@@ -345,6 +352,9 @@ public class RegularVendingController {
 
     /**
      * Counts the digits in the total amount of change
+     * 
+     * @param change        computed change
+     * @return              total number of digits
      */
     private int countDigits(int change) {
         int temp;
@@ -365,8 +375,8 @@ public class RegularVendingController {
     /**
      * Produces change based on the amount of payment the user gave.
      * 
-     * @param           Price of the item
-     * @param           Inputted payment from the user
+     * @param price           Price of the item
+     * @param payment         Inputted payment from the user
      */
     public void produceChange(double price, double payment) {
         int i;
@@ -459,14 +469,6 @@ public class RegularVendingController {
                 regularVendingView.getChosenItemTextArea().append("Dispensing PHP 1000.00...\n");
             }
         }
-        
-        // 0 means the user inserted the exact amount
-        if(change == 0)
-            System.out.println("\n[ Thank you for inserting the exact amount! ]\n");
-        else
-            System.out.println("\n[ Change dispensed successfully! Your total change is PHP " + change + " ]");
-
-        System.out.println();
     }
 
     /**
@@ -481,12 +483,10 @@ public class RegularVendingController {
                 public void actionPerformed(ActionEvent e) {
                     if(hasPaid){
                         JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Thank you for your purchase!", "Thank You", JOptionPane.INFORMATION_MESSAGE);  
-                        System.out.println("TEST IF");
                         // reset hasPaid
                         hasPaid = false;
                     } else if(!hasPaid){
                         JOptionPane.showMessageDialog(regularVendingView.getFrame(), "Please pay first before dispensing", "Warning", JOptionPane.WARNING_MESSAGE);
-                        System.out.println("TEST ELSE IF");
                     }
                 }
             });
@@ -514,11 +514,6 @@ public class RegularVendingController {
         maintenanceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*
-                JOptionPane.showMessageDialog(regularVendingView.getFrame(),"Maintenance feature is not available","Notice",
-                JOptionPane.INFORMATION_MESSAGE);
-                System.out.println("Maintenance Test"); // TO REMOVE
-                */
                 regularVendingView.getFrame().setVisible(false);
                 maintenanceView.getFrame().setVisible(true); // Show the maintenance view
             }
